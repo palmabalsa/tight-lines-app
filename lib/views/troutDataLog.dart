@@ -9,7 +9,7 @@ class TroutDataView extends StatefulWidget {
 }
 
 class _TroutDataViewState extends State<TroutDataView> {
-  late Future<TroutData> fishOn;
+  late Future<List<TroutData>> fishOn;
 
   @override
   void initState() {
@@ -25,35 +25,44 @@ class _TroutDataViewState extends State<TroutDataView> {
         title: Text( 'Fishing Log'),
       ),
       body: Center(
-        child: FutureBuilder<TroutData>(
+        child: FutureBuilder<List<TroutData>>(
           future: fishOn,
           builder: (BuildContext context, snapshot) {
 
             if (snapshot.hasData) {
 
-              String river = snapshot.data!.river;
-              String fishy = snapshot.data!.fish_species;
-              String condition = snapshot.data!.fish_condition;
 
-
-
-
-              return InteractiveViewer(
-                constrained: false,
-                child: DataTable(
-                  columns: [
-                    DataColumn(label: Text('River')),
-                    DataColumn(label: Text('Fish')),
-                    DataColumn(label: Text('Condition'))
-                  ], 
-                  rows: [
-                    DataRow(cells: [
-                      DataCell(Text('$river')),
-                      DataCell(Text('$fishy')),
-                      DataCell(Text('$condition')),
-                    ]),
-                  ]));
+              return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) => ListTile(
+                // snapshot.data![index].logo!),
+                // ),
+                title: Text(snapshot.data![index].river),
+                subtitle: Text(snapshot.data![index].fish_species),
+              )
+              );
             }
+                
+
+
+
+
+            //   return InteractiveViewer(
+            //     constrained: false,
+            //     child: DataTable(
+            //       columns: [
+            //         DataColumn(label: Text('River')),
+            //         DataColumn(label: Text('Fish')),
+            //         DataColumn(label: Text('Condition'))
+            //       ], 
+            //       rows: [
+            //         DataRow(cells: [
+            //           DataCell(Text('$river')),
+            //           DataCell(Text('$fishy')),
+            //           DataCell(Text('$condition')),
+            //         ]),
+            //       ]));
+            // }
             else if (snapshot.hasError){
               throw Exception('Error loading the data');
             }

@@ -3,14 +3,19 @@ import 'dart:convert';
 import 'dart:async';
 
 
-Future<TroutData> fetchTroutData() async {
+Future<List<TroutData>> fetchTroutData() async {
   var response = await http.get(Uri.parse('http://127.0.0.1:8000/api/'));
-  TroutData troutData = TroutData.fromJson(jsonDecode(response.body)[0]);
-  print(troutData.river);
-  print(troutData.fish_species);
-  print(troutData.fish_condition);
+  final List parsedList = jsonDecode(response.body);
+  List<TroutData> troutData = parsedList.map((val) => TroutData.fromJson(val)).toList();
   return troutData;
 }
+
+  // TroutData troutData = TroutData.fromJson(jsonDecode(response.body)[0]);
+//   print(troutData.river);
+//   print(troutData.fish_species);
+//   print(troutData.fish_condition);
+//   return troutData;
+// }
 
 class TroutData {
   String river;
