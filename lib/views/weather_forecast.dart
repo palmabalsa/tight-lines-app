@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ttlines2/services/one_call_weather.dart';
-import 'package:ttlines2/widgets/weather_card.dart';
-
+import 'dart:async';
 
 
 class weatherForecastView extends StatefulWidget {
@@ -12,54 +11,80 @@ class weatherForecastView extends StatefulWidget {
 }
 
 class _weatherForecastViewState extends State<weatherForecastView> {
-
-late Future<WeatherData> aloha;
-late Future<ForecastData> mahalo;
+late Future<WeatherDataList> aloha;
 
 
   @override
   void initState() {
     super.initState();
-
-    mahalo = getWeatherData();
-    monday();
+    aloha = getWeatherData();
   }
+ 
+  @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Todays Weather'),
+        ),
+        body: Center(
 
 
-  void monday() {
-    print (mahalo);
-  }
-  
-@override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Todays Weather')
-      ),
-      body: Center(
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  height: 200.0,
-                  child: ListView.builder(
-                    itemCount: 8, 
-                    scrollDirection: Axis.horizontal, 
-                    itemBuilder: (context, index) => WeatherCard()),//weather: forecastData.list.elementAt(index))),
-              ),
-            ),
-            Text('WEATHER FORECAST FOR TONGARIRO'),
-            Divider(),
-            ElevatedButton(
-              onPressed: () {
-              },
-              child: const Text('one-call Weather api')),
-          ]
+          // child: Text('hello'),
+          child: FutureBuilder<WeatherDataList>(
+            future: aloha,
+            builder: (context, snapshot) {
+              // if (snapshot.connectionState == ConnectionState.done) {
+               if (snapshot.hasData){
+
+                 var hello = snapshot.data!.weatherList?[0].sunrise;
+                 var bye = snapshot.data!.weatherList?[0].sunset;
+                
+                print(hello);
+                
+                return Text('$hello + $bye');
+                // return Text('${snapshot.data!.weatherList[1].sunrise}');
+              }
+              else if (snapshot.hasError){
+                throw Exception('theres an error mate');
+              }
+              else return CircularProgressIndicator();
+            }
+          )
+
+
+
+
+
+
+
+
+
+          // child: FutureBuilder<WeatherDataList>(
+          //   future: aloha,
+          //   builder: (context, snapshot) {
+
+          //     if (snapshot.hasData) {
+
+          //       dynamic maybe = snapshot.data!.theForecast;
+          //       print( maybe);
+
+
+          //         // return ListView.builder(
+          //         //   itemCount: snapshot.data!.length, 
+          //         //   scrollDirection: Axis.horizontal, 
+          //         //   itemBuilder: (context, index) => ListTile(
+          //         //     title: Text(snapshot.data![index].sunrise.toString()),
+          //         //     subtitle: Text(snapshot.data![index].sunset.toString()),
+          //         //   )
+          //         // );       
+          //     }
+          //     else if (snapshot.hasError){
+          //     throw Exception('theres an error');
+          //     }
+          //     return CircularProgressIndicator();
+          //   } 
+          // )
         )
-      )
-    );
-  }
+      );
+    }
 }
-
-

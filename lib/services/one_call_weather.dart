@@ -1,123 +1,138 @@
-// API CALL: ***REMOVED***data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
-// API CALL: ***REMOVED***data/2.5/onecall?lat=-39.0982&lon=175.8302&exclude=current,minutely,hourly,alerts&units=metric&appid=***REMOVED***
-// add a way where you can enter different lat/lon for the different rivers
-
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
-
-// original call to weatherData 
-//  Future<WeatherData> getWeatherData() async {
-//   final String apiUrl = '***REMOVED***data/2.5/onecall?lat=-39.0982&lon=175.8302&exclude=current,minutely,hourly,alerts&units=metric&appid=***REMOVED***';
-//   var weatherResponse = await http.get(Uri.parse(apiUrl));
-//   WeatherData currentWeather = WeatherData.fromJson(json.decode(weatherResponse.body));
-
-//   if (weatherResponse.statusCode == 200) {
-//         print (currentWeather.sunrise);
-//         print (currentWeather.sunset);
-//         return currentWeather;
-//   } else {
-//     print (weatherResponse.statusCode);
-//     throw (Exception('error'));
-//   }
-// } 
-// }
 
 
-
-
-
-
-
-
- Future<ForecastData> getWeatherData() async {
+ Future<WeatherDataList> getWeatherData() async {
   final String apiUrl = '***REMOVED***data/2.5/onecall?lat=-39.0982&lon=175.8302&exclude=current,minutely,hourly,alerts&units=metric&appid=***REMOVED***';
-  var weatherResponse = await http.get(Uri.parse(apiUrl));
-  WeatherData todayzWeather = WeatherData.fromJson(json.decode(weatherResponse.body));
-  ForecastData todayzForecast = ForecastData.fromJson(json.decode(weatherResponse.body));
-  
+  var response = await http.get(Uri.parse(apiUrl));
 
-  if (weatherResponse.statusCode == 200) {
-        print (todayzWeather.sunrise);
-        print (todayzWeather.sunset);
-        print (todayzForecast);
-        return todayzForecast;
+   WeatherDataList ramon = WeatherDataList.fromJson(jsonDecode(response.body));
+
+     if (response.statusCode == 200) {
+        print (ramon.weatherList?[0].sunrise);
+        print (ramon.weatherList?[3].sunrise);
+        return ramon;
   } else {
-    print (weatherResponse.statusCode);
-    throw (Exception('error'));
+    print (response.statusCode);
+    throw (Exception('error HERE'));
   }
-}
+} 
+
+    
+//   WeatherDataList dataHere = WeatherDataList.fromJson(jsonDecode(response.body));
+  
+//   print(dataHere.runtimeType);
+//   print(dataHere.weatherList[1].sunrise);
+
+//   return dataHere;
+
+//  }
+
+
+
+
+  
+ 
+
+class WeatherDataList {
+  List<WeatherData>? weatherList;
+
+  WeatherDataList ({
+    required this.weatherList,
+  });
+  
+  factory WeatherDataList.fromJson(Map<String, dynamic> json) {
+      final recievedData = json['daily'] as List<dynamic>?;
+    // List<WeatherData> weatherAnswer = recievedData.map((item) => WeatherData.fromJson(item)).toList();
+    final weatherAnswer = recievedData != null ? recievedData.map((item) => WeatherData.fromJson(item)).toList() : <WeatherData> [];
+
+    return WeatherDataList(
+      weatherList: weatherAnswer,
+    );
+    }
+  }
+
+
+
+    // final recievedData = json['daily'] as List<dynamic>?;
+    // final  weatherList = recievedData != null ? recievedData.map((item) => WeatherData.fromJson(item)).toList() : <WeatherData> [];
+
+    // return WeatherDataList(
+    //   weatherList: weatherList,
+   
+    
+    
+    
 
 class WeatherData {
-
-  // late double lat;
-  // late double lon;
-  // late String key;
-  // datetime dt;
-  //double dt;
+  int dt;
   int sunrise;
   int sunset;
-  // num temp;
-  // String main;
-  // String description;
-  // String icon;
-  // num windSpeed;
-  // num windDir;
-
-
-//we're expecting (in this constructor)to receive these different values, when we create a new instance of this class
+ 
   WeatherData({
-    // required this.lat, 
-    // required this.lon, 
-    // required this.key, 
-   // required this.dt,
+    required this.dt,
     required this.sunrise,
     required this.sunset,
-    // required this.temp, 
-    // required this.main, 
-    // required this.description, 
-    // required this.icon,
-    // required this.windSpeed,
-    // required this.windDir,
     });
 
-// factory WeatherData.fromJson(Map<String, dynamic> json) { 
-//   return WeatherData(
-//    // dt: json["dt"] as double,
-//     sunrise : json['daily'][0]['sunrise'],
-//     sunset : json['daily'][0]['sunset'],
-//   );
-
-
-factory WeatherData.fromJson(Map<String, dynamic> json) => WeatherData(
-  // dt: json["dt"] as double,
-        sunrise: json['daily'][0]['sunrise'],
-        sunset: json['daily'][0]['sunset'],
+factory WeatherData.fromJson(Map<String, dynamic> json) {
+  return WeatherData(
+        dt : json['dt'] as int,
+        sunrise: json['sunrise'] as int,
+        sunset: json['sunset'] as int,
     );
+}
   
   Map<String, dynamic> toJson() => {
+        'dt': dt,
         'sunrise': sunrise,
         'sunset': sunset,
       };
 }
 
 
-class ForecastData {
-  List<WeatherData> forecastList;
 
-  ForecastData({
-    required this.forecastList,
-  });
 
-  factory ForecastData.fromJson(Map<String, dynamic> json) => ForecastData(
-    forecastList: List<WeatherData>.from(json["forecastList"].map((x) => WeatherData.fromJson(x))));
 
-  Map<String, dynamic> toJson() => {
-    "forecastList" : List<dynamic>.from(forecastList.map((x) => x.toJson())),
-  };
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// class ForecastData {
+//   List<WeatherData> forecastList;
+
+//   ForecastData({
+//     required this.forecastList,
+//   });
+
+//   factory ForecastData.fromJson(Map<String, dynamic> json) => ForecastData(
+//     forecastList: List<WeatherData>.from(json["forecastList"].map((x) => WeatherData.fromJson(x))));
+
+//   Map<String, dynamic> toJson() => {
+//     "forecastList" : List<dynamic>.from(forecastList.map((x) => x.toJson())),
+//   };
+// }
 
 
 
