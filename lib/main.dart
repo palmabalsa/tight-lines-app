@@ -6,7 +6,6 @@ import 'package:ttlines2/views/Tongariro.dart';
 import 'package:ttlines2/views/TT.dart';
 import 'package:ttlines2/views/Lake_Omg.dart';
 import 'package:ttlines2/views/todays_weather.dart';
-import 'package:ttlines2/views/weather.dart';
 import 'package:ttlines2/views/weather_forecast.dart';
 import 'package:ttlines2/views/troutDataLog.dart';
 
@@ -133,16 +132,6 @@ class _HomeViewState extends State<HomeView> {
               },
               child: Text('Fishing Log')),
 
-              // //just for now - testing weather API stuff
-            ElevatedButton(
-              style: style,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => WeatherView()),
-                );
-              },
-              child: const Text('weather API')),
 
 // testing the loading screen example
               ElevatedButton(
