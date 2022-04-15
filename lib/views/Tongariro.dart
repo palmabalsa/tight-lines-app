@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-//import 'package:ttlines/services/weather.dart';
-import 'package:ttlines2/widgets/weather_card.dart';
 import 'package:ttlines2/services/one_call_weather.dart';
 import 'package:http/http.dart' as http;
 

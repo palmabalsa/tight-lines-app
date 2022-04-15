@@ -41,7 +41,7 @@ late Future<WeatherDataList> aloha;
                       child: Container(
                       height: 300.0,
                       child: ListView.builder(
-                        itemCount: snapshot.data!.weatherList?.length, 
+                        itemCount: snapshot.data!.weatherList.length, 
                         scrollDirection: Axis.horizontal, 
                         itemBuilder: (context, index) {
                           return 
@@ -54,19 +54,21 @@ late Future<WeatherDataList> aloha;
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    Text('${snapshot.data!.weatherList?[index].dt}'.toString()),
-                                    Text('${snapshot.data!.weatherList?[index].sunrise}'.toString()),
-                                    Text('${snapshot.data!.weatherList?[index].sunset}'.toString()),
-                                    Text('WIND'),
-                                    Text('${snapshot.data!.weatherList?[index].wind_speed}'.toString()),
-                                    Text('${snapshot.data!.weatherList?[index].wind_deg}'.toString()),
+                                    Text('${snapshot.data!.weatherList[index].dt}'.toString()),
+                                    // Text('${snapshot.data!.weatherList?[index].sunrise}'.toString()),
+                                    // Text('${snapshot.data!.weatherList?[index].sunset}'.toString()),
+                                    Text('${snapshot.data!.weatherList[index].weather_main[0].id.toString()}'),
+                                    Text('${snapshot.data!.weatherList[index].weather_main[0].description.toString()}'),
+                                    Text('${snapshot.data!.weatherList[index].weather_main[0].icon.toString()}'),
 
-                                  // Text(snapshot.data!.description),
-                                  // Text (snapshot.data!.icon),
-                                  // Text('WIND'),
-                                  // Text ('Speed: ${snapshot.data!.speed} Kms'),
-                                  // Text ('Dir: ${snapshot.data!.deg} C'),
-                                  ]
+
+
+                                    Text('TEMP'),
+                                    Text('${snapshot.data!.weatherList[index].temp.day_temp.toString()} °C'),
+                                    Text('WIND'),
+                                    Text('${snapshot.data!.weatherList[index].wind_speed.toString()} m/s'),
+                                    Text('${snapshot.data!.weatherList[index].wind_deg.toString()} °'),
+                                  ] 
                                 )
                               )
                             )
