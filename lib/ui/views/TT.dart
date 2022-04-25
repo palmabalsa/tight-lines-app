@@ -10,9 +10,11 @@ class TaurangaTaupoView extends StatefulWidget {
 class _TaurangaTaupoViewState extends State<TaurangaTaupoView> {
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tauranga Taupo River')
+        title: Text('TAURANGA TAUPO',
+        style: theme.textTheme.headline5),
       ),
       body: Center(
           child: ListView(

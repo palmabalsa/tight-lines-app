@@ -10,9 +10,12 @@ class LakeOmgView extends StatefulWidget {
 class _LakeOmgViewState extends State<LakeOmgView> {
   @override
   Widget build(BuildContext context) {
+     var theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Lake OMG')
+        title: Text('LAKE O',
+        style: theme.textTheme.headline5,)
       ),
       body: Center(
         child: ListView(

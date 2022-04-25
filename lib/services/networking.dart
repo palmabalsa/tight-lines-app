@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:ttlines2/views/loading_screen.dart';
+import 'package:ttlines2/ui/views/loading_screen.dart';
 
 
 

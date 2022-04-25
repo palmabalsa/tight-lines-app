@@ -44,14 +44,14 @@ class WeatherDataList {
     
 
 class WeatherData {
-  int dt;
+  DateTime date;
   double wind_speed;
   int wind_deg;
   Temp temp;
   List<WeatherMain> weather_main;
  
   WeatherData({
-    required this.dt,
+    required this.date,
     required this.wind_speed,
     required this.wind_deg,
     required this.temp,
@@ -63,7 +63,8 @@ factory WeatherData.fromJson(Map<String, dynamic> json) {
   var new_list = json['weather'] as List;
   List<WeatherMain> weather_main_list = new_list.map((item) => WeatherMain.fromJson(item)).toList();
   return WeatherData(
-        dt : json['dt'] as int,
+        // dt : json['dt'] as int,
+        date : DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false),
         wind_speed: json['wind_speed'] as double,
         wind_deg: json['wind_deg'] as int,
         temp: Temp.fromJson(json['temp']),
@@ -71,7 +72,7 @@ factory WeatherData.fromJson(Map<String, dynamic> json) {
     );
 }  
   Map<String, dynamic> toJson() => {
-        'dt': dt,
+        'date': date,
         'wind_speed': wind_speed,
         'wind_deg': wind_deg,
         'temp': temp, //is this right?
@@ -97,17 +98,20 @@ class Temp {
 
 class WeatherMain {
   int id;
+  // String main_description;
   String description;
   String icon;
 
   WeatherMain({
     required this.id,
+    // required this.main_description,
     required this.description,
     required this.icon,
   });
   factory WeatherMain.fromJson(Map<String, dynamic> json){
     return WeatherMain(
       id : json['id'] as int,
+      // main_description : json['main'] as String,
       description: json ['description'] as String,
       icon : json['icon'] as String,
       );
@@ -116,85 +120,28 @@ class WeatherMain {
 
 
 
+// class Hourly {
+//   DateTime time;   
+//   int temp;      
+//   int wind_deg;   
+//   int wind_speed; 
+//   int icon; 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'package:http/http.dart' as http;
-// import 'dart:convert';
-// import 'dart:async';
-// import 'package:flutter/material.dart';
-
-
-//  Future<WeatherDataList> getWeatherData() async {
-//   final String apiUrl = '***REMOVED***data/2.5/onecall?lat=-39.0982&lon=175.8302&exclude=current,minutely,hourly,alerts&units=metric&appid=***REMOVED***';
-//   var response = await http.get(Uri.parse(apiUrl));
-
-//    WeatherDataList ramon = WeatherDataList.fromJson(jsonDecode(response.body));
-
-//      if (response.statusCode == 200) {
-//         // print (ramon.weatherList?[0].sunrise);
-//         // print (ramon.weatherList?[3].sunrise);
-//         print(ramon.weatherList?[0]);
-//         return ramon;
-//   } else {
-//     print (response.statusCode);
-//     throw (Exception('error HERE'));
-//   }
-// } 
-
-
-
-// class WeatherDataList {
-//   List<WeatherData>? weatherList;
-
-//   WeatherDataList ({
-//     required this.weatherList,
+//   Hourly({
+//     required this.time,
+//     required this.temp,
+//     required this.wind_deg,
+//     required this.wind_speed,
+//     required this.icon,
 //   });
-  
-//   factory WeatherDataList.fromJson(Map<String, dynamic> json) {
-//       final list = json['daily'] as List<dynamic>?;
-//     final weatherAnswer = list != null ? list.map((item) => WeatherData.fromJson(item)).toList() : <WeatherData> [];
 
-//     return WeatherDataList(
-//       weatherList: weatherAnswer,
-//     );
-//     }
+//   factory Hourly.fromJson(Map<String, dynamic> json)   {
+
+//     return Hourly(
+//       time: json['hourly.dt'], 
+//       temp: json['hourly.temp'],
+//       wind_deg: json['hourly.wind_deg'],
+//       wind_speed: json['hourly.wind_speed']
+//       icon: icon)
 //   }
-    
-
-// class WeatherData {
-//   int dt;
-//   int sunrise;
-//   int sunset;
- 
-//   WeatherData({
-//     required this.dt,
-//     required this.sunrise,
-//     required this.sunset,
-//     });
-
-// factory WeatherData.fromJson(Map<String, dynamic> json) {
-//   return WeatherData(
-//         dt : json['dt'] as int,
-//         sunrise: json['sunrise'] as int,
-//         sunset: json['sunset'] as int,
-//     );
-// }
-  
-//   Map<String, dynamic> toJson() => {
-//         'dt': dt,
-//         'sunrise': sunrise,
-//         'sunset': sunset,
-//       };
 // }
