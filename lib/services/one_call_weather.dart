@@ -8,12 +8,10 @@ import 'package:flutter/material.dart';
   final String apiUrl = '***REMOVED***data/2.5/onecall?lat=-39.0982&lon=175.8302&exclude=current,minutely,hourly,alerts&units=metric&appid=***REMOVED***';
   var response = await http.get(Uri.parse(apiUrl));
 
-   WeatherDataList ramon = WeatherDataList.fromJson(jsonDecode(response.body));
+   WeatherDataList weatherReport = WeatherDataList.fromJson(jsonDecode(response.body));
 
      if (response.statusCode == 200) {
-      
-        print(ramon.weatherList[0].weather_main[0].description);
-        return ramon;
+        return weatherReport;
   } else {
     print (response.statusCode);
     throw (Exception('error HERE'));
@@ -49,6 +47,7 @@ class WeatherData {
   int wind_deg;
   Temp temp;
   List<WeatherMain> weather_main;
+  // List<Hourly> hourly_weather;
  
   WeatherData({
     required this.date,
@@ -56,12 +55,18 @@ class WeatherData {
     required this.wind_deg,
     required this.temp,
     required this.weather_main,
+    // required this.hourly_weather,
 
     });
 
 factory WeatherData.fromJson(Map<String, dynamic> json) {
   var new_list = json['weather'] as List;
   List<WeatherMain> weather_main_list = new_list.map((item) => WeatherMain.fromJson(item)).toList();
+
+
+  // var hourly_list = json['hourly'] as List;
+  // List<Hourly> hourly_weather_list = hourly_list.map((hourly_item) => Hourly.fromJson(hourly_item)).toList();
+  
   return WeatherData(
         // dt : json['dt'] as int,
         date : DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false),
@@ -69,6 +74,7 @@ factory WeatherData.fromJson(Map<String, dynamic> json) {
         wind_deg: json['wind_deg'] as int,
         temp: Temp.fromJson(json['temp']),
         weather_main : weather_main_list,
+        // hourly_weather: hourly_weather_list,
     );
 }  
   Map<String, dynamic> toJson() => {
@@ -86,7 +92,6 @@ class Temp {
   Temp ({
     required this.day_temp,
   });
-
   factory Temp.fromJson(Map<String, dynamic> json){
     return Temp(
       day_temp: json['day'] as double,
@@ -125,14 +130,14 @@ class WeatherMain {
 //   int temp;      
 //   int wind_deg;   
 //   int wind_speed; 
-//   int icon; 
+//   // int icon; 
 
 //   Hourly({
 //     required this.time,
 //     required this.temp,
 //     required this.wind_deg,
 //     required this.wind_speed,
-//     required this.icon,
+//     // required this.icon,
 //   });
 
 //   factory Hourly.fromJson(Map<String, dynamic> json)   {
@@ -141,7 +146,8 @@ class WeatherMain {
 //       time: json['hourly.dt'], 
 //       temp: json['hourly.temp'],
 //       wind_deg: json['hourly.wind_deg'],
-//       wind_speed: json['hourly.wind_speed']
-//       icon: icon)
+//       wind_speed: json['hourly.wind_speed'],
+//       // icon: icon)
+//     );
 //   }
 // }
