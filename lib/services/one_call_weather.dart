@@ -4,8 +4,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 
- Future<WeatherDataList> getWeatherData() async {
-  final String apiUrl = '***REMOVED***data/2.5/onecall?lat=-39.0982&lon=175.8302&exclude=current,minutely,hourly,alerts&units=metric&appid=***REMOVED***';
+ 
+ Future<WeatherDataList> getWeatherData(String lat, String lon) async {
+  final String apiUrl = '***REMOVED***data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,hourly,alerts&units=metric&appid=***REMOVED***';
   var response = await http.get(Uri.parse(apiUrl));
 
    WeatherDataList weatherReport = WeatherDataList.fromJson(jsonDecode(response.body));

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ttlines2/services/one_call_weather.dart';
+// import 'package:ttlines2/ui/widgets/graph_options_dropdown.dart';
 
 class TongariroView extends StatefulWidget {
 
@@ -6,11 +8,13 @@ class TongariroView extends StatefulWidget {
   _TongariroViewState createState() => _TongariroViewState();
 }
 class _TongariroViewState extends State<TongariroView> {
+  late Future<WeatherDataList> tongaForecast;
+  String tongaLat = '-38.95';
+  String tongaLon = '175.78333';
 
 
-  String defaultGraphValue = '7D';
-  String newVal = '7D';
-  String selectedValue = '7D';
+ 
+  String graphValue = '7D';
 
 
 DropdownButtonFormField<String> newDropdown() {
@@ -39,14 +43,23 @@ DropdownButtonFormField<String> newDropdown() {
         DropdownMenuItem<String>(child: Text('1 Month Graph'), value: '1M'),
         DropdownMenuItem<String>(child: Text('3 Month Graph'), value: '3M'),
       ],
-      value: newVal,
+      value: graphValue,
       onChanged: (value) {
         setState(() {
-          newVal = value!;
+          graphValue = value!;
         });
       }
    );
 }
+
+
+
+@override
+  void initState() {
+    super.initState();
+    tongaForecast = getWeatherData(tongaLat, tongaLon);
+    
+  }
 
 
   @override
@@ -56,33 +69,6 @@ DropdownButtonFormField<String> newDropdown() {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('TONGARIRO', style: theme.textTheme.headline5,),
-        // actions: [
-        //   PopupMenuButton(
-        //     onSelected: (value) {
-        //       setState(() {
-        //           newVal = value.toString();
-        //         });
-        //     },
-        //     itemBuilder:(context) => [
-        //       PopupMenuItem(
-        //         value: '2D',
-        //         child: Text('2 Day Graph'),
-        //       ),
-        //       PopupMenuItem(
-        //         value: '7D',
-        //         child: Text('7 Day Graph'),
-        //       ),
-        //       PopupMenuItem(
-        //         value: '1M',
-        //         child: Text('1 Month Graph'),
-        //       ),
-        //       PopupMenuItem(
-        //         value: '3M',
-        //         child: Text('3 Month Graph'),
-        //       ),
-        //     ],
-        //   ),
-        // ],
       ),
       body: Center(
         child: Padding(
@@ -90,6 +76,32 @@ DropdownButtonFormField<String> newDropdown() {
         child: ListView (
           scrollDirection: Axis.vertical,
           children: <Widget> [
+
+            // weather forecast in here:
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -103,7 +115,7 @@ DropdownButtonFormField<String> newDropdown() {
                     height: 50,
                     child: newDropdown(),
                   
-                  // child: GraphDropdown(),
+                  // child: RiverLevelDropdown(graphValue),
                   ),
                 ),
               ]
@@ -119,7 +131,7 @@ DropdownButtonFormField<String> newDropdown() {
               ),
               ),
             ),
-              Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20at%20Turangi_$newVal.gif'),
+              Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20at%20Turangi_$graphValue.gif'),
 
               Padding(
                 padding: EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 0.0 ),
@@ -132,7 +144,7 @@ DropdownButtonFormField<String> newDropdown() {
               ),
               ),
               ),
-              Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20downstream%20of%20Poutu%20Intake_$newVal.gif'),
+              Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20downstream%20of%20Poutu%20Intake_$graphValue.gif'),
 
               Padding(
                 padding: EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 0.0 ),
@@ -145,7 +157,7 @@ DropdownButtonFormField<String> newDropdown() {
               ),
               ),
               ),
-              Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20at%20Rangipo_$newVal.gif'),
+              Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20at%20Rangipo_$graphValue.gif'),
 
                Padding(
                 padding: EdgeInsets.fromLTRB(16.0, 14.0, 16.0, 0.0 ),
@@ -158,7 +170,7 @@ DropdownButtonFormField<String> newDropdown() {
               ),
              ),
                ),
-              Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20at%20Waipakihi_$newVal.gif'),
+              Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20at%20Waipakihi_$graphValue.gif'),
               Divider(),
           ],
 

@@ -13,12 +13,15 @@ class weatherForecastView extends StatefulWidget {
 class _weatherForecastViewState extends State<weatherForecastView> {
 late Future<WeatherDataList> aloha;
 
+String tongaLat = '-38.95';
+String tongaLon = '175.78333';
+
 
 
   @override
   void initState() {
     super.initState();
-    aloha = getWeatherData();
+    aloha = getWeatherData(tongaLat, tongaLon);
     }
 
 
@@ -32,25 +35,6 @@ late Future<WeatherDataList> aloha;
     theMonth = '${monthDate[month]}' ;
     }
 
-
-// DROPDOWN HOURLY MENU:::::::
-
-//   DropdownButton<String> newDropdown() {
-//    return DropdownButton<String>(
-//           items: [
-//             DropdownMenuItem<String>(child: Text('2 day graph'), value: '2D'), 
-//             DropdownMenuItem<String>(child: Text('7 day graph'), value: '7D'),
-//             DropdownMenuItem<String>(child: Text('1 month graph'), value: '1M'),
-//             DropdownMenuItem<String>(child: Text('3 month graph'), value: '3M'),
-//           ],
-//           value: newVal,
-//           onChanged: (value) {
-//             setState(() {
-//               newVal = value!;
-//             });
-//           }
-//    );
-// }
 
 
   @override
@@ -84,6 +68,9 @@ late Future<WeatherDataList> aloha;
                         scrollDirection: Axis.horizontal, 
                         itemBuilder: (context, index) {
 
+
+                          
+
                           String weathericon = snapshot.data!.weatherList[index].weather_main[0].icon.toString();
                           final currentDate = DateTime.parse('${snapshot.data!.weatherList[index].date}');
                           String weekdayNumber = currentDate.weekday.toString();
@@ -92,9 +79,10 @@ late Future<WeatherDataList> aloha;
 
                           return 
                           SizedBox(
-                            height: 200.0,
-                            width: 170.0,
-                            child: Card(
+                            height: 200,
+                            width: 165.0,
+                            child: 
+                          Card(
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Column(
@@ -112,11 +100,19 @@ late Future<WeatherDataList> aloha;
                                     Text('Wind: ${snapshot.data!.weatherList[index].wind_speed.toString()} m/s, ${snapshot.data!.weatherList[index].wind_deg.toString()} °', style: TextStyle(color: Colors.black, fontSize: 12.0)),
                                     // get the wind in direction (eg: southerly?west etc)
                                     Divider(),
-                                    // WeatherDropdown
-                                    ElevatedButton(
-                                      onPressed: null, 
-                                      child: Text('Hourly')),
                                     
+
+                                    // ExpansionPanelList(
+                                    //   children: [
+                                    //     ExpansionPanel(
+                                    //       headerBuilder: (context, isExpanded) {
+                                    //         return Text("Hourly");
+                                    //       }, 
+                                    //       body: Text('hourly weather'),//the context of the opened panel,
+                                    //       // isExpanded:
+                                    //       ),
+                                    //   ]
+                                    // )
                                   ] 
                                 )
                               )
@@ -135,28 +131,22 @@ late Future<WeatherDataList> aloha;
                     return CircularProgressIndicator();
                 } 
               ),
-              // Divider(),
-              // Text('TONGARIRO RIVER LEVELS', textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold)),
-              // Divider(),
-              // Divider(),
-              // Text('Tongariro @ Turangi'),
-              // Divider(),
-              // Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20at%20Turangi_7D.gif'),
-              // Divider(),
-              // Text('Tongariro @ Poutu Intake'),
-              // Divider(),
-              // Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20downstream%20of%20Poutu%20Intake_7D.gif'),
-              // Divider(),
-              // Text('Tongariro @ Rangipo'),
-              // Divider(),
-              // Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20at%20Rangipo_7D.gif'),
-              // Divider(),
-              // Text('Tongariro @ Waipakihi'),
-              // Divider(),
-              // Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Tongariro%20at%20Waipakihi_7D.gif'),
            ],
           )
         )
       );
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

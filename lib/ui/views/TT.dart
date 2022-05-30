@@ -8,6 +8,17 @@ class TaurangaTaupoView extends StatefulWidget {
 }
 
 class _TaurangaTaupoViewState extends State<TaurangaTaupoView> {
+
+  
+String ttLat =  '-38.93823';
+String ttLon = '175.93021';
+
+
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);

@@ -10,10 +10,14 @@ class LakeOmgView extends StatefulWidget {
 class _LakeOmgViewState extends State<LakeOmgView> {
 
 
+String omgLat = '-38.99823';
+String omgLon = '175.62021';
+
+
 
 String defaultGraphValue = '7D';
-  String newValue = '7D';
-  String selectedValue = '7D';
+String newValue = '7D';
+String selectedValue = '7D';
 
 
 DropdownButtonFormField<String> omgDropdown() {
