@@ -13,8 +13,8 @@ class Themes {
         headline1: TextStyle(),
         headline4: TextStyle(color: Colors.black),
         headline5: TextStyle(color: Colors.white),
-        headline6: TextStyle(fontSize: 10.0, fontWeight: FontWeight.w900),
-        bodyText2: TextStyle(),
+        headline6: TextStyle(color: Colors.black),
+        bodyText2: TextStyle(color: Colors.black),
         ),
 
       inputDecorationTheme: InputDecorationTheme(
@@ -32,6 +32,17 @@ class Themes {
           borderSide: BorderSide.none
         ),
       ),
+
+      // buttonTheme: 
+
+      
+
+
+
+
+
+
+
       );
 
 }

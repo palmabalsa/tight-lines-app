@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
+import 'package:ttlines2/ui/widgets/RiverDropDownMenu.dart';
+import 'package:ttlines2/ui/widgets/RiverLevelCard.dart';
+import 'package:ttlines2/ui/widgets/RiverTitleAndWeatherButton.dart';
+import 'package:ttlines2/ui/widgets/RiverAppBar.dart';
 
 class LakeOmgView extends StatefulWidget {
-  const LakeOmgView({ Key? key }) : super(key: key);
+  const LakeOmgView({Key? key,}) : super(key: key);
 
   @override
   _LakeOmgViewState createState() => _LakeOmgViewState();
@@ -9,103 +14,82 @@ class LakeOmgView extends StatefulWidget {
 
 class _LakeOmgViewState extends State<LakeOmgView> {
 
+  String lakeOLat = '-38.99823';
+  String lakeOLon = '175.62021';
+  String graphValue = '7D';
 
-String omgLat = '-38.99823';
-String omgLon = '175.62021';
-
-
-
-String defaultGraphValue = '7D';
-String newValue = '7D';
-String selectedValue = '7D';
-
-
-DropdownButtonFormField<String> omgDropdown() {
-   return DropdownButtonFormField<String>(
-
-     itemHeight: null,
-     decoration: InputDecoration(
-       contentPadding: EdgeInsets.all(8.0),
-       labelStyle: TextStyle(fontWeight: FontWeight.w900),
-       enabledBorder: OutlineInputBorder(
-         borderSide: BorderSide(color: Colors.teal.shade50),
-         borderRadius: BorderRadius.circular(99),
-       ),
-       border: OutlineInputBorder(
-         borderSide: BorderSide(color: Colors.teal.shade50),
-         borderRadius: BorderRadius.circular(99),
-       ),
-       filled: true,
-       fillColor: Colors.teal.shade50,
-      ),
-      dropdownColor: Colors.teal.shade50,
-      iconSize: 30,
-      items: [
-        DropdownMenuItem<String>(child: Text('2 Day Graph'), value: '2D'), 
-        DropdownMenuItem<String>(child: Text('7 Day Graph'), value: '7D'),
-        DropdownMenuItem<String>(child: Text('1 Month Graph'), value: '1M'),
-        DropdownMenuItem<String>(child: Text('3 Month Graph'), value: '3M'),
-      ],
-      value: newValue,
-      onChanged: (value) {
-        setState(() {
-          newValue = value!;
-        });
-      }
-   );
-}
-
+  void graphcallbackfunction(String newValue){
+    setState(() {
+      graphValue = newValue;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
      var theme = Theme.of(context);
+
+     final ButtonStyle style=
+    TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
+    ElevatedButton.styleFrom(primary: Colors.amber);
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.teal.shade50,
       appBar: AppBar(
-        title: Text('LAKE O',
-        style: theme.textTheme.headline5,)
+        title: Text('TURANGI TIGHT LINES',
+        style: theme.textTheme.headline5
+        ),
+        automaticallyImplyLeading: false,
+        actions: <Widget> [
+          
+          ElevatedButton.icon(
+            style: ElevatedButton.styleFrom(primary: Colors.teal.shade100, shape: CircleBorder(side: BorderSide.none )),
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context, '/log', (Route<dynamic> route) => false);
+            }, 
+            icon: Icon(MaterialCommunityIcons.fish),
+            label: Text('LOG', style: theme.textTheme.bodyText2)
+          ),
+          // ),
+        ]
       ),
       body: Center(
         child: ListView(
           scrollDirection: Axis.vertical,
           children: <Widget> [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Text('Lake Level',
-            style: Theme.of(context).textTheme.headline5?.copyWith(color: Colors.black),
-            ),
-            Padding(
-                  padding: EdgeInsets.only(top: 12.0, bottom: 4.0),
-                  child: SizedBox(
-                    width: 170,
-                    height: 50,
-                    child: omgDropdown(),
-                  ),
+            Column(
+              children: <Widget> [
+                RiverAppBar(style: style),
+                SizedBox(
+                  height: 10
+                ),
+
+                RiverTitle(
+                  riverName: 'LAKE O', 
+                  lat: lakeOLat, 
+                  lon: lakeOLon
+                ),
+
+                RiverDropDown(
+                  rivertitle: 'LAKE LEVEL', 
+                  graphvalue: graphValue, 
+                  updateGraphValue : graphcallbackfunction,
+                ),
+
+                RiverLevelCard(
+                  theme: theme, 
+                  measuringSiteName: 'Lake Otamangakau at Dam', 
+                  measuringSiteUrl: 'Lake%20Otamangakau%20at%20Dam_', 
+                  graphValue: graphValue
                 ),
               ]
-            ),
-            Padding(
-                padding: EdgeInsets.fromLTRB(16.0, 5.0, 16.0, 0.0 ),
-            child: Container(
-              height: 22,
-              color: Colors.teal.shade50,
-              child: Padding(
-                padding: EdgeInsets.only(left:10.0),
-              child: Text('Lake Otamangakau at Dam'),
-              ),
-              ),
-            ),
-              Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Lake%20Otamangakau%20at%20Dam_$newValue.gif')
+            )
           ]
         )
       )
     );
 
 
-    //         Image.network('https://gesakentico.blob.core.windows.net/genesis/WebGraphs/Lake%20Otamangakau%20at%20Dam_7D.gif')
-    //       ],),)
-    // );
 
   }
 }
