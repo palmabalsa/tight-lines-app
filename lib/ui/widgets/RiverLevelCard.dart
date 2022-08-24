@@ -22,7 +22,11 @@ class RiverLevelCard extends StatelessWidget {
       height: 210,
       margin: EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 0.0),
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(color: Colors.grey.shade700, width: 1),
+        ),
+        // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: Colors.white,
         child: Column(children: [
           SizedBox(

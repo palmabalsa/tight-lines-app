@@ -1,48 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:ttlines2/services/tt_river_level.dart';
+import 'package:ttlines2/ui/widgets/RiverDropDownMenu.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class TaurangaTaupoView extends StatefulWidget {
-  const TaurangaTaupoView({ Key? key }) : super(key: key);
+  const TaurangaTaupoView({Key? key}) : super(key: key);
 
   @override
   _TaurangaTaupoViewState createState() => _TaurangaTaupoViewState();
 }
 
 class _TaurangaTaupoViewState extends State<TaurangaTaupoView> {
-
-  
-String ttLat =  '-38.93823';
-String ttLon = '175.93021';
-
-
-
-
-
-
+  String ttLat = '-38.93823';
+  String ttLon = '175.93021';
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text('TAURANGA TAUPO',
-        style: theme.textTheme.headline5),
+        body: Center(
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          SizedBox(
+            height: 10,
+          ),
+          RiverDropDown(riverName: 'Tauranga Taupo', lat: ttLat, lon: ttLon),
+          // SizedBox(
+          //   height: 10,
+          // ),
+          // ElevatedButton(
+          //     onPressed: () {
+          //       getTTRiverLevel();
+          //     },
+          //     child: Text('get TT level data'))
+
+          Container(
+            height: 2000,
+            width: 100,
+            child: WebView(
+              initialUrl:
+                  'https://waikatoregion.govt.nz/environment/envirohub/environmental-maps-and-data/station/42456/WL?dt=Level',
+              javascriptMode: JavascriptMode.unrestricted,
+              navigationDelegate: (NavigationRequest request) {
+                return NavigationDecision.prevent;
+              },
+            ),
+          )
+        ],
       ),
-      body: Center(
-          child: ListView(
-            children: [
-              //do i need this button? goes back to home page - look up Navigator
-              //ElevatedButton( 
-              //  onPressed: () {
-              //    Navigator.pop(context);
-              //  },
-              //  child: Text('Home'),
-              //),
-              Text('Tauranga Taupo River Level'),
-              Image.network('http://riverlevelsmap.waikatoregion.govt.nz/cgi-bin/hydwebserver.cgi/points/plot?point=1')
-              // change the width and height of this graph so that it fits on the page better
-            ],
-          ), 
-      )     
-    );
+    ));
   }
 }
