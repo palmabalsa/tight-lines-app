@@ -1,7 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ttlines2/services/trout_data_api.dart';
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:ttlines2/ui/widgets/data_table.dart';
-import 'Create_Catch.dart';
 
 class TroutDataView extends StatefulWidget {
   TroutDataView({Key? key}) : super(key: key);
@@ -11,205 +11,42 @@ class TroutDataView extends StatefulWidget {
 }
 
 class _TroutDataViewState extends State<TroutDataView> {
-  late Future<List<TroutData>> fishOn;
-
-  @override
-  void initState() {
-    super.initState();
-    fishOn = fetchTroutData();
-  }
+  final user = FirebaseAuth.instance.currentUser!;
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    final ButtonStyle style=
-    TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
+    final ButtonStyle style =
+        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
     ElevatedButton.styleFrom(primary: Colors.cyan);
     return Scaffold(
-      appBar: AppBar(
-        title: Text( 'FISHING LOG', style: theme.textTheme.headline5,),
-        actions: <Widget>[
-
-          TextButton.icon(
-            style: style,
-            onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => NewCatchView()),
-                  );
-                },
-            icon: Icon(Icons.add_circle),
-            label: Text('new catch'),
+        // backgroundColor: Colors.white,
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
+              icon: Icon(MaterialCommunityIcons.home)),
+          title: Text(
+            'TROUT DATA',
+            style: theme.textTheme.headline5,
+          ),
+          actions: <Widget>[
+            TextButton.icon(
+              style: style,
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+                Navigator.popUntil(context, (route) => route.isFirst);
+              },
+              icon: Icon(Icons.logout),
+              label: Text('Sign Out'),
             ),
-
-        ],
-      ),
-      body: Center(
-        child: FutureBuilder<List<TroutData>>(
-          future: fishOn,
-          builder: (BuildContext context, snapshot) {
-
-            if (snapshot.hasData) {
-
-              List<TroutData> troutdataList = snapshot.data!;
-
-              return TroutDataTable(fishINFO : troutdataList);
-             
-            }
-            else if (snapshot.hasError){
-              throw Exception('Error loading the data');
-            }
-            return CircularProgressIndicator();
-          }
+          ],
         ),
-      )
-    );
+        body: Center(
+            child: ListView(children: [
+          SizedBox(height: 30),
+          TroutDataTable(),
+        ])));
   }
 }
-
-              
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// DATATABLE :::::::::::::
-
- // return InteractiveViewer(
-              //   constrained: false,
-              //   child: DataTable(
-              //     headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
-              //     headingRowColor: MaterialStateProperty.resolveWith(
-              //       (states) => Colors.amber),
-              //     showBottomBorder: true,
-              //     sortColumnIndex: isSortingColumn,
-              //     sortAscending: isAscendingOrder,
-
-              //     columns: [
-
-              //       // DataColumn(label: Text('Date')),
-              //       // DataColumn(label: Text('River')),
-              //       DataColumn(label: Text('Pool'),
-              //       // onSort: (columnIndex, _) {
-              //       //   setState(() {
-              //       //     isSortingColumn = columnIndex;
-              //       //     if (isAscendingOrder){
-              //       //       dataPoint.river_pool.sort((a, b) => b['Pool'].compareTo(a['Pool']));
-              //       //     }
-              //       //       else{}
-
-              //       //     }
-              //       //   });
-              //       // }
-              //       ),
-              //       // DataColumn(label: Text('Fish')),
-              //       // DataColumn(label: Text('Size')),
-              //       // DataColumn(label: Text('Icon')),
-              //       // DataColumn(label: Text('Condition')),
-              //       // DataColumn(label: Text('Kept?')),
-              //       DataColumn(label: Text('Fly')),
-              //       DataColumn(label: Text('Notes')),
-              //     ], 
-                  
-              //     rows: troutdataList.map((dataPoint) => DataRow(
-              //       cells: [
-              //         // DataCell(Text(dataPoint.dateAndTime.toString())),
-              //         // DataCell(Text(dataPoint.river)),
-              //         DataCell(Text(dataPoint.river_pool)),
-              //         // DataCell(Text(dataPoint.fish_species)),
-              //         // DataCell(Text(dataPoint.fish_weight.toString())),
-              //         // DataCell(Text(dataPoint.fish_species == 'Rainbow' ? 'rainbfishy' : 'bfishy')),
-              //         // DataCell(Text(dataPoint.fish_condition)),
-              //         // DataCell(Text(dataPoint.kept_or_released.toString())),
-              //         DataCell(Text(dataPoint.fly_used)),
-              //         DataCell(Text(dataPoint.any_notes)),
-              //       ],
-
-              //     ),
-              //     ).toList(),  //growable: true
-              //   )
-              // );
-
-
-
-
-              // return InteractiveViewer(
-              //   constrained: false,
-              //   child: DataTable(
-              //     headingTextStyle: TextStyle(fontWeight: FontWeight.bold),
-              //     headingRowColor: MaterialStateProperty.resolveWith(
-              //       (states) => Colors.amber),
-              //     showBottomBorder: true,
-              //     // sortColumnIndex: isSortingColumn,
-              //     // sortAscending: isAscendingOrder,
-
-              //     columns: [
-
-              //       // DataColumn(label: Text('Date')),
-              //       // DataColumn(label: Text('River')),
-              //       DataColumn(label: Text('Pool'),
-              //       // onSort: (columnIndex, _) {
-              //       //   setState(() {
-              //       //     isSortingColumn = columnIndex;
-              //       //     if (isAscendingOrder){
-              //       //       dataPoint.river_pool.sort((a, b) => b['Pool'].compareTo(a['Pool']));
-              //       //     }
-              //       //       else{}
-
-              //       //     }
-              //       //   });
-              //       // }
-              //       ),
-              //       // DataColumn(label: Text('Fish')),
-              //       // DataColumn(label: Text('Size')),
-              //       // DataColumn(label: Text('Icon')),
-              //       // DataColumn(label: Text('Condition')),
-              //       // DataColumn(label: Text('Kept?')),
-              //       DataColumn(label: Text('Fly')),
-              //       DataColumn(label: Text('Notes')),
-              //     ], 
-                  
-              //     rows: troutdataList.map((dataPoint) => DataRow(
-              //       cells: [
-              //         // DataCell(Text(dataPoint.dateAndTime.toString())),
-              //         // DataCell(Text(dataPoint.river)),
-              //         DataCell(Text(dataPoint.river_pool)),
-              //         // DataCell(Text(dataPoint.fish_species)),
-              //         // DataCell(Text(dataPoint.fish_weight.toString())),
-              //         // DataCell(Text(dataPoint.fish_species == 'Rainbow' ? 'rainbfishy' : 'bfishy')),
-              //         // DataCell(Text(dataPoint.fish_condition)),
-              //         // DataCell(Text(dataPoint.kept_or_released.toString())),
-              //         DataCell(Text(dataPoint.fly_used)),
-              //         DataCell(Text(dataPoint.any_notes)),
-              //       ],
-
-              //     ),
-              //     ).toList(),  //growable: true
-              //   )
-              // );
