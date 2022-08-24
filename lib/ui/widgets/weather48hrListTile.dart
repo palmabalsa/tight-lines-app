@@ -29,7 +29,6 @@ class weatherListTile extends StatelessWidget {
             Spacer(),
             Image.network(
                 'http://openweathermap.org/img/w/$hourlyWeatherIcon.png'),
-            // Spacer(),
             Text(
               '$hourlyTemperature °C',
               style: TextStyle(fontWeight: FontWeight.bold),

@@ -2,11 +2,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:ttlines2/auth/keys.dart';
 
 Future<WeatherDataList> getWeatherData(String lat, String lon) async {
-  String myApiKey = '***REMOVED***';
   final String apiUrl =
-      '***REMOVED***data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=$myApiKey';
+      '***REMOVED***data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=$openWeatherApi';
   var response = await http.get(Uri.parse(apiUrl));
 
   WeatherDataList weatherReport =
