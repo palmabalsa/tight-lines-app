@@ -12,16 +12,18 @@ class Formfield extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  return TextFormField(
-    decoration: InputDecoration(
-    labelText: fieldentry),
-    controller: fieldController,
-    validator:(inputValue) {
-      if (inputValue == null || inputValue.isEmpty) {
-        return 'This field is required';
-      }
-      return null;
+    return TextFormField(
+      decoration: InputDecoration(
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          labelText: fieldentry),
+      controller: fieldController,
+      validator: (inputValue) {
+        if (inputValue == null || inputValue.isEmpty) {
+          return 'This field is required';
+        }
+        return null;
       },
     );
-}
+  }
 }
