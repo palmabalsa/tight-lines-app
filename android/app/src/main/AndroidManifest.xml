@@ -1,9 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ttlines2">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="Tight Lines"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDxHy7bFrad5GQjmFGchF7sTh80apQgoiA"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
