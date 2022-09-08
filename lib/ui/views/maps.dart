@@ -1,8 +1,9 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ttlines2/ui/views/Create_Catch.dart';
 
-// API KEY = AIzaSyB3l0WsiRbObmVHm3Naa1uYWBNIzji71wA
 class MapsView extends StatefulWidget {
   MapsView({
     Key? key,
@@ -47,25 +48,8 @@ class _MapsViewState extends State<MapsView> {
     'Reed': LatLng(-38.972986, 175.803330),
   };
 
-  // List<String> markerIDS = [
-  //   'Bridge',
-  //   'Judges',
-  //   'Major Jones',
-  //   'Breakfast',
-  //   'Duchess',
-  //   'Red Hut',
-  //   'Cliff',
-  //   'Stag',
-  //   'Hydro',
-  //   'Log',
-  //   'Reed'
-  // ];
-
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
-    // for (String id in markerIDS) {
-    //   mapController.showMarkerInfoWindow(MarkerId(id));
-    // }
   }
 
   addMarkers() {

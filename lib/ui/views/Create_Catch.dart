@@ -1,15 +1,21 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ttlines2/services/trout_data_api.dart';
-import 'package:ttlines2/ui/views/troutDataLog.dart';
 import 'package:ttlines2/ui/views/Confetti_Screen.dart';
 import 'package:ttlines2/ui/widgets/form_fields.dart';
 
+// ignore: must_be_immutable
 class NewCatchView extends StatefulWidget {
-  const NewCatchView({
+  NewCatchView({
     Key? key,
+    required this.latLon,
+    this.pool,
   }) : super(key: key);
+
+  LatLng latLon;
+  String? pool;
 
   @override
   State<NewCatchView> createState() => _NewCatchViewState();
@@ -17,7 +23,6 @@ class NewCatchView extends StatefulWidget {
 
 class _NewCatchViewState extends State<NewCatchView> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   Future<TroutData>? clarity;
 
   var currentUser = FirebaseAuth.instance.currentUser;
@@ -28,19 +33,16 @@ class _NewCatchViewState extends State<NewCatchView> {
     return currentUser!.uid;
   }
 
-  // final user = FirebaseAuth.instance.currentUser!;
-  // late String? userUID = user.uid;
-
-  TextEditingController riverPoolController = TextEditingController();
+  TextEditingController riverController = TextEditingController();
+  TextEditingController poolController = TextEditingController();
   TextEditingController fishWeightController = TextEditingController();
   TextEditingController flyUsedController = TextEditingController();
   TextEditingController anyNotesController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
 
-  var riverValue = 'Tongariro';
   var fishSpeciesValue = 'Rainbow';
-  var fishConditionValue = 'Sashimi';
+  var fishConditionValue = 'Sashimi(Excellent)';
   var dateValue;
 
   DateTime startdate = DateTime.now();
@@ -60,18 +62,10 @@ class _NewCatchViewState extends State<NewCatchView> {
       newList.add(newItem);
     }
     return DropdownButtonFormField<String>(
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20))),
-        ),
         items: newList,
         value: menuOptions[0],
         onChanged: (value) {
-          if (fieldName == "River") {
-            setState(() {
-              riverValue = value!;
-            });
-          } else if (fieldName == "Condition") {
+          if (fieldName == "Condition") {
             setState(() {
               fishConditionValue = value!;
             });
@@ -90,45 +84,67 @@ class _NewCatchViewState extends State<NewCatchView> {
         controller: chosenController,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20))),
           labelText: fieldLabel,
         ));
+  }
+
+// based on latLon from user
+  // void determinePool() {
+  //   if (widget.pool != null) {
+  // list of pools and latlongs and map them
+
+  void determineRiverAndPool() {
+    if (widget.latLon.longitude <= 175.701685 &&
+        widget.latLon.longitude >= 175.525026 &&
+        widget.pool == null) {
+      riverController.text = 'Lake O';
+      poolController.text = '-';
+    } else if (widget.latLon.longitude >= 175.701685 &&
+        widget.latLon.longitude <= 175.849658 &&
+        widget.pool != null) {
+      riverController.text = 'Tongariro';
+      poolController.text = widget.pool!;
+    } else if (widget.latLon.longitude >= 175.701685 &&
+        widget.latLon.longitude <= 175.849658 &&
+        widget.pool == null) {
+      riverController.text = 'Tongariro';
+      poolController.text = '-';
+    } else if (widget.latLon.longitude >= 175.849658 && widget.pool == null) {
+      riverController.text = 'Tauranga Taupo';
+      poolController.text = '-';
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    determineRiverAndPool();
+    // determinePool();
   }
 
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-
-    final ButtonStyle logbuttonstyle = TextButton.styleFrom(
-        primary: Colors.tealAccent,
-        backgroundColor: Colors.teal,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)));
-    ElevatedButton.styleFrom(primary: Colors.amber);
-
     return Scaffold(
         appBar: AppBar(
-          // leading: IconButton(
-          //     onPressed: () {
-          //       Navigator.pushReplacementNamed(context, '/fishinglog');
-          //     },
-          //     icon: Icon(MaterialCommunityIcons.arrow_left)),
           title: Text(
-            'Log Your Catch',
+            'Add Your Catch',
             style: theme.textTheme.headline5,
           ),
         ),
         body: Center(
-            child: SingleChildScrollView(
+            child: ListView(
+          children: <Widget>[
+            SizedBox(height: 30),
+            SingleChildScrollView(
                 child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.teal.shade200,
-                        borderRadius: BorderRadius.all(Radius.circular(40))),
-                    margin: EdgeInsets.all(10),
-                    padding: EdgeInsets.all(45),
-                    width: 325,
-                    height: 625,
+                        color: Colors.teal.shade50,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    margin: EdgeInsets.fromLTRB(50, 10, 50, 20),
+                    padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
+                    width: 100,
+                    height: 500,
                     child: Container(
                         width: 90,
                         child: Form(
@@ -138,39 +154,42 @@ class _NewCatchViewState extends State<NewCatchView> {
                               children: <Widget>[
                                 DateTimePicker(
                                     decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20))),
                                       labelText: 'Date',
                                     ),
                                     type: DateTimePickerType.dateTime,
                                     use24HourFormat: false,
                                     locale: Locale('en', 'US'),
-                                    initialValue: '',
+                                    initialValue: lastdate.toString(),
                                     firstDate: firstdate,
-                                    lastDate: lastdate,
-                                    // dateLabelText: 'Date',
+                                    lastDate: DateTime.now(),
                                     onChanged: (value) {
                                       setState(() {
                                         dateValue = value;
-                                        print(value);
-                                        print(dateValue);
                                       });
                                     },
                                     validator: (value) {
-                                      print(value);
                                       return null;
                                     }),
                                 Spacer(),
-                                formDropdown(menuOptions: [
-                                  'Tongariro',
-                                  'Tauranga Taupo',
-                                  'Lake O'
-                                ], valueChoice: riverValue, fieldName: 'River'),
+                                TextFormField(
+                                  decoration: InputDecoration(
+                                    fillColor: Colors.teal.shade50,
+                                  ),
+                                  controller: riverController,
+                                  enabled: false,
+                                ),
                                 Spacer(),
-                                Formfield(
-                                    fieldentry: 'River pool',
-                                    fieldController: riverPoolController),
+                                // TextFormField(
+                                //   decoration: InputDecoration(
+                                //     fillColor: Colors.teal.shade50,
+                                //   ),
+                                //   controller: poolController,
+                                //   enabled: true,
+                                // ) : null;
+
+                                // Formfield(
+                                //     fieldentry: 'River pool',
+                                //     fieldController: riverPoolController),
                                 Spacer(),
                                 formDropdown(
                                     menuOptions: ['Rainbow', 'Brown'],
@@ -179,14 +198,14 @@ class _NewCatchViewState extends State<NewCatchView> {
                                 Spacer(),
                                 numericTextField(
                                     chosenController: fishWeightController,
-                                    fieldLabel: 'Weight'),
+                                    fieldLabel: 'Weight (kg)'),
                                 Spacer(),
                                 formDropdown(
                                     menuOptions: [
-                                      'Sashimi',
+                                      'Sashimi (Excellent)',
+                                      'Good',
                                       'Average',
-                                      'Healthy',
-                                      'Sick/Spawning'
+                                      'Spent'
                                     ],
                                     valueChoice: fishConditionValue,
                                     fieldName: 'Condition'),
@@ -199,35 +218,47 @@ class _NewCatchViewState extends State<NewCatchView> {
                                     fieldentry: 'Any notes',
                                     fieldController: anyNotesController),
                                 ElevatedButton(
-                                    style: logbuttonstyle,
-                                    onPressed: () async {
-                                      if (_formKey.currentState!.validate()) {
-                                        setState(() {
-                                          final fishyBiz = TroutData(
-                                            // user: userUID,
-                                            user: getUserUID(),
-                                            date: DateTime.parse(dateValue),
-                                            river: riverValue,
-                                            fish_species: fishSpeciesValue,
-                                            fish_condition: fishConditionValue,
-                                            fish_weight:
-                                                fishWeightController.text,
-                                            river_pool:
-                                                riverPoolController.text,
-                                            fly_used: flyUsedController.text,
-                                            any_notes: anyNotesController.text,
-                                          );
-                                          clarity = newCatch(fishyBiz);
-                                        });
-                                        Navigator.pushReplacementNamed(
-                                            // context, '/confetti');
-                                            context,
-                                            '/fishinglog');
-                                        // TroutDataView()),
-                                      }
-                                    },
-                                    child: const Text('Submit')),
+                                  style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.resolveWith(
+                                              (states) => Colors.tealAccent)),
+                                  // style: theme.elevatedButtonTheme.style,
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      setState(() {
+                                        final fishyBiz = TroutData(
+                                          user: getUserUID(),
+                                          date: DateTime.parse(dateValue),
+                                          river: riverController.text,
+                                          lat: widget.latLon.latitude,
+                                          lon: widget.latLon.longitude,
+                                          fish_species: fishSpeciesValue,
+                                          fish_condition: fishConditionValue,
+                                          fish_weight:
+                                              fishWeightController.text,
+                                          river_pool: poolController.text,
+                                          fly_used: flyUsedController.text,
+                                          any_notes: anyNotesController.text,
+                                        );
+                                        clarity = newCatch(fishyBiz);
+                                      });
+
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ConfettiPlayer(
+                                                    fishSpecies:
+                                                        fishSpeciesValue,
+                                                  )));
+                                    }
+                                  },
+                                  child: const Text('Submit',
+                                      style: TextStyle(color: Colors.black)),
+                                )
                               ],
-                            )))))));
+                            )))))
+          ],
+        )));
   }
 }
