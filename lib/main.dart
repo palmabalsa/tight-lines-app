@@ -7,16 +7,20 @@ import 'package:ttlines2/ui/views/Create_Catch.dart';
 import 'package:ttlines2/ui/views/TT.dart';
 import 'package:ttlines2/ui/views/Lake_Omg.dart';
 import 'package:ttlines2/ui/views/TT_webview.dart';
+import 'package:ttlines2/ui/views/fish_summary_map.dart';
 import 'package:ttlines2/ui/views/home.dart';
+import 'package:ttlines2/ui/views/maps.dart';
 import 'package:ttlines2/ui/views/troutDataLog.dart';
 import 'package:ttlines2/ui/views/login_view.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // await Future.wait([
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await Future.delayed(const Duration(milliseconds: 300));
+  await Future.delayed(const Duration(milliseconds: 500));
+  // ]);
   runApp(MyApp());
 }
 
@@ -34,8 +38,10 @@ class MyApp extends StatelessWidget {
           '/lakeO': (context) => const LakeOmgView(),
           '/fishinglog': (context) => TroutDataView(),
           '/login': (context) => LoginView(),
-          '/newcatch': (context) => NewCatchView(),
-          // '/confetti': (context) => ConfettiPlayer(confettiPlaying: true),
+          // '/newcatch': (context) => NewCatchView(),
+          '/confetti': (context) => ConfettiPlayer(),
+          // '/fishSummary': (context) => fishSummaryMapView(),
+          // '/map': (context) => MapsView(),
         });
   }
 }
