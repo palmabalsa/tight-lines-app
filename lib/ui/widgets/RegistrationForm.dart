@@ -42,7 +42,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
       child: Form(
         key: _formKey,
         child: Container(
-          color: Colors.teal.shade200,
+          color: Colors.teal.shade100,
           height: 400,
           margin: EdgeInsets.fromLTRB(30, 5, 30, 70),
           padding: EdgeInsets.all(5),
@@ -59,8 +59,12 @@ class _RegistrationFormState extends State<RegistrationForm> {
                   onPressed: () {
                     registerUser();
                   },
-                  icon: Icon(Icons.person_add),
-                  label: Text('Register')),
+                  icon: Icon(
+                    Icons.person_add,
+                    color: Colors.black,
+                  ),
+                  label:
+                      Text('Register', style: TextStyle(color: Colors.black))),
               Spacer(flex: 6),
             ],
           ),

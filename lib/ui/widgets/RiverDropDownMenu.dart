@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:ttlines2/ui/views/WeatherForecast.dart';
 
 class RiverDropDown extends StatefulWidget {
@@ -23,44 +24,50 @@ class RiverDropDown extends StatefulWidget {
 }
 
 class _RiverDropDownState extends State<RiverDropDown> {
-  DropdownButtonFormField<String> newDropdown(String anothervalue) {
-    return DropdownButtonFormField<String>(
+  DropdownButtonFormField newDropdown(String anothervalue) {
+    return DropdownButtonFormField(
+        // hint: Row(children: [
+        //   Icon(MaterialCommunityIcons.waves, color: Colors.teal),
+        //   Spacer(),
+        //   Text('River Level',
+        //       style: TextStyle(
+        //           color: Colors.teal.shade700, fontWeight: FontWeight.bold)),
+        // ]),
         itemHeight: null,
         decoration: InputDecoration(
-          labelStyle: TextStyle(fontWeight: FontWeight.w900),
-          enabled: false,
+          prefixIcon: Icon(MaterialCommunityIcons.waves, color: Colors.black),
+          fillColor: Colors.teal.shade50,
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.teal.shade100),
-            borderRadius: BorderRadius.circular(99),
-          ),
-          filled: true,
-          fillColor: Colors.teal.shade100,
+              borderRadius: BorderRadius.all(Radius.circular(99)),
+              borderSide: BorderSide(color: Colors.grey.shade800)),
+          enabled: false,
         ),
-        dropdownColor: Colors.teal.shade100,
-        iconSize: 15,
+        dropdownColor: Colors.teal.shade50,
+        iconSize: 30,
+        isExpanded: true,
         items: [
-          DropdownMenuItem<String>(
+          DropdownMenuItem(
               child: Text('Last 2 days',
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w900,
                       fontSize: 14)),
               value: '2D'),
-          DropdownMenuItem<String>(
+          DropdownMenuItem(
               child: Text('Last 7 days',
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w900,
                       fontSize: 14)),
               value: '7D'),
-          DropdownMenuItem<String>(
+          DropdownMenuItem(
               child: Text('Last Month',
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w900,
                       fontSize: 14)),
               value: '1M'),
-          DropdownMenuItem<String>(
+          DropdownMenuItem(
               child: Text('Last 3 Months',
                   style: TextStyle(
                       color: Colors.black,
@@ -88,30 +95,19 @@ class _RiverDropDownState extends State<RiverDropDown> {
         children: [
           Spacer(flex: 1),
           SizedBox(
-            width: 127,
-            height: 40,
+            width: 230,
+            height: 50,
             child: widget.graphvalue != null && widget.updateGraphValue != null
                 ? newDropdown(widget.graphvalue!)
                 : Container(
                     padding: EdgeInsets.only(left: 50),
                     child: Text(
-                      'TT',
+                      'Tauranga Taupo',
                       style: theme.textTheme.headline6,
                     )),
           ),
-          Spacer(flex: 2),
-          Container(
-              height: 40,
-              child: Row(
-                children: <Widget>[
-                  Image.asset('assets/images/trout.png'),
-                ],
-              )),
-          Spacer(flex: 2),
-          TextButton.icon(
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(99))),
+          Spacer(flex: 1),
+          ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -133,15 +129,8 @@ class _RiverDropDownState extends State<RiverDropDown> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(widget.riverName,
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.grey.shade900,
-                                fontWeight: FontWeight.bold)),
-                        Text("Weather",
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.grey.shade900,
-                                fontWeight: FontWeight.bold))
+                            style: theme.textTheme.bodyText2),
+                        Text("Weather", style: theme.textTheme.bodyText2),
                       ]))),
           Spacer(flex: 1),
         ],

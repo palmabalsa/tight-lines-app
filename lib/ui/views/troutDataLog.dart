@@ -16,36 +16,42 @@ class _TroutDataViewState extends State<TroutDataView> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    final ButtonStyle style =
-        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
-    ElevatedButton.styleFrom(primary: Colors.cyan);
     return Scaffold(
-        // backgroundColor: Colors.white,
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
                 Navigator.popUntil(context, (route) => route.isFirst);
               },
               icon: Icon(MaterialCommunityIcons.home)),
-          title: Text(
-            'TROUT DATA',
-            style: theme.textTheme.headline5,
+          title: Row(
+            children: [
+              Text(
+                'Trout Data',
+                style: theme.textTheme.headline5,
+              ),
+              Spacer(),
+              Container(
+                height: 40,
+                width: 50,
+                child:
+                    Image.asset('assets/images/trout.png', color: Colors.white),
+              ),
+              Spacer(flex: 6),
+            ],
           ),
           actions: <Widget>[
-            TextButton.icon(
-              style: style,
+            TextButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
                 Navigator.popUntil(context, (route) => route.isFirst);
               },
-              icon: Icon(Icons.logout),
-              label: Text('Sign Out'),
+              child: Text('Sign Out'),
             ),
           ],
         ),
         body: Center(
             child: ListView(children: [
-          SizedBox(height: 30),
+          SizedBox(height: 10),
           TroutDataTable(),
         ])));
   }

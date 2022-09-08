@@ -26,15 +26,9 @@ class _TaurangaTaupoViewState extends State<TaurangaTaupoView> {
             height: 10,
           ),
           RiverDropDown(riverName: 'Tauranga Taupo', lat: ttLat, lon: ttLon),
-          // SizedBox(
-          //   height: 10,
-          // ),
-          // ElevatedButton(
-          //     onPressed: () {
-          //       getTTRiverLevel();
-          //     },
-          //     child: Text('get TT level data'))
-
+          SizedBox(
+            height: 5,
+          ),
           Container(
             height: 2000,
             width: 100,

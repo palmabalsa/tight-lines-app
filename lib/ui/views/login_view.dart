@@ -29,17 +29,25 @@ class _LoginViewState extends State<LoginView>
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.teal.shade50,
       appBar: AppBar(
-        title: Text(
-          'TURANGI TIGHT LINES',
-          style: theme.textTheme.headline5,
-        ),
+        title: Row(children: [
+          Text(
+            'Turangi Tight Lines',
+            style: theme.textTheme.headline5,
+          ),
+          Spacer(flex: 2),
+          Container(
+            height: 40,
+            width: 50,
+            child: Image.asset('assets/images/trout.png', color: Colors.white),
+          ),
+          Spacer(flex: 6),
+        ]),
       ),
       body: Center(
         child: Container(
           decoration: BoxDecoration(
-              color: Colors.teal.shade200,
+              color: Colors.teal.shade100,
               borderRadius: BorderRadius.all(Radius.circular(20))),
           height: 500,
           margin: EdgeInsets.fromLTRB(30, 5, 30, 70),

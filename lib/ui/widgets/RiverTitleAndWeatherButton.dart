@@ -20,9 +20,9 @@ class RiverTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
 
-    final ButtonStyle style =
-        TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
-    ElevatedButton.styleFrom(primary: Colors.amber);
+    // final ButtonStyle style =
+    //     TextButton.styleFrom(primary: Theme.of(context).colorScheme.onPrimary);
+    // ElevatedButton.styleFrom(primary: Colors.amber);
 
     return Container(
       child: Row(
@@ -31,10 +31,10 @@ class RiverTitle extends StatelessWidget {
             Spacer(flex: 1),
             Spacer(flex: 6),
             ElevatedButton.icon(
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.amber.shade200,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(99))),
+              // style: ElevatedButton.styleFrom(
+              //     primary: Colors.amber.shade200,
+              //     shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(99))),
               onPressed: () {
                 Navigator.push(
                   context,

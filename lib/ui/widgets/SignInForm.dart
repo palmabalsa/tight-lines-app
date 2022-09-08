@@ -43,7 +43,7 @@ class _SignInFormState extends State<SignInForm> {
         child: Form(
             key: _formKey,
             child: Container(
-              color: Colors.teal.shade200,
+              color: Colors.teal.shade100,
               height: 400,
               margin: EdgeInsets.fromLTRB(30, 5, 30, 70),
               padding: EdgeInsets.all(5),
@@ -62,8 +62,9 @@ class _SignInFormState extends State<SignInForm> {
                       onPressed: () {
                         signIn();
                       },
-                      icon: Icon(Icons.lock_open),
-                      label: Text('Sign In')),
+                      icon: Icon(Icons.lock_open, color: Colors.black),
+                      label: Text('Sign In',
+                          style: TextStyle(color: Colors.black))),
                   Spacer(flex: 3),
                 ],
               ),
