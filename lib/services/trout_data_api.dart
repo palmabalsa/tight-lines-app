@@ -1,9 +1,7 @@
-import 'package:confetti/confetti.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:ttlines2/ui/views/Confetti_Screen.dart';
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -33,7 +31,7 @@ Future<void> deleteEntry(List<int>? idList) async {
 
   for (int id in idList!) {
     http.Response response = await http
-        .delete(Uri.parse(mainUrl + 'api/log/$id/'), headers: headers);
+        .delete(Uri.parse(mainUrl + 'api/trout/log/$id/'), headers: headers);
     if (response.statusCode == 204) {
       print(response.statusCode);
     } else {
@@ -52,8 +50,8 @@ Future<void> UpdateEntry(List<int>? idList) async {
   };
 
   for (int id in idList!) {
-    http.Response response =
-        await http.patch(Uri.parse(mainUrl + 'api/$id/'), headers: headers);
+    http.Response response = await http
+        .patch(Uri.parse(mainUrl + 'api/trout/log/$id/'), headers: headers);
     if (response.statusCode == 200) {
       print(response.statusCode);
     } else {
@@ -72,7 +70,7 @@ Future<TroutData> newCatch(TroutData myCatch) async {
   };
   var body = jsonEncode(myCatch.toJson());
 
-  final response = await http.post(Uri.parse(mainUrl + 'api/create/'),
+  final response = await http.post(Uri.parse(mainUrl + 'api/trout/create/'),
       headers: headers, body: body);
   if (response.statusCode == 201) {
     return TroutData.fromJson(jsonDecode(response.body));
@@ -91,7 +89,7 @@ Future<List<TroutData>> fetchTroutData() async {
     "Authorization": 'Bearer ' + userToken,
   };
   var response = await http.get(
-    Uri.parse(mainUrl + "api/log/"),
+    Uri.parse(mainUrl + "api/trout/log/"),
     headers: headers,
   );
 
@@ -99,7 +97,7 @@ Future<List<TroutData>> fetchTroutData() async {
     final List parsedList = jsonDecode(response.body);
     List<TroutData> troutdata =
         parsedList.map((val) => TroutData.fromJson(val)).toList();
-    print('Token= ' + userToken);
+    print(userToken);
     return troutdata;
   } else {
     print(response.statusCode);
@@ -112,12 +110,14 @@ class TroutData {
   int? id;
   DateTime date;
   String river;
-  String river_pool;
-  String fish_weight;
+  String? river_pool;
+  double? lat;
+  double? lon;
+  String? fish_weight;
   // bool kept_or_released;
   String fish_species;
   String fish_condition;
-  String fly_used;
+  String? fly_used;
   String? any_notes;
 
   TroutData({
@@ -125,13 +125,15 @@ class TroutData {
     this.id,
     required this.date,
     required this.river,
-    required this.river_pool,
-    required this.fish_weight,
+    this.river_pool,
+    this.lat,
+    this.lon,
+    this.fish_weight,
     // required this.kept_or_released,
     required this.fish_species,
     required this.fish_condition,
-    required this.fly_used,
-    required this.any_notes,
+    this.fly_used,
+    this.any_notes,
   });
 
   bool thisoneselected = false;
@@ -143,8 +145,10 @@ class TroutData {
       date: DateTime.parse(json['date']),
       river: json['river'],
       river_pool: json['river_pool'],
-      fish_weight: json['fish_weight'],
+      lat: double.parse(json['lat']),
+      lon: double.parse(json['lon']),
       // kept_or_released : json['kept_or_released'],
+      fish_weight: json['fish_weight'],
       fish_species: json['fish_species'],
       fish_condition: json['fish_condition'],
       fly_used: json['fly_used'],
@@ -158,6 +162,8 @@ class TroutData {
         'date': date.toIso8601String(),
         'river': river,
         'river_pool': river_pool,
+        'lat': lat!.toDouble(),
+        'lon': lon!.toDouble(),
         // 'kept_or_released': kept_or_released,
         'fish_weight': fish_weight,
         'fly_used': fly_used,
