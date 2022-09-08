@@ -1,16 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:ttlines2/ui/views/Lake_Omg.dart';
 import 'package:ttlines2/ui/views/TT.dart';
 import 'package:ttlines2/ui/views/Tongariro.dart';
-import 'package:ttlines2/ui/views/troutDataLog.dart';
-import 'package:ttlines2/ui/widgets/RiverDropDownMenu.dart';
-import 'package:ttlines2/ui/widgets/RiverLevelCard.dart';
-import 'package:ttlines2/ui/widgets/RiverTitleAndWeatherButton.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:ttlines2/ui/widgets/data_table.dart';
-import 'package:ttlines2/ui/views/login_view.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -39,24 +32,25 @@ class _HomeViewState extends State<HomeView>
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-
-    final ButtonStyle logbuttonstyle = TextButton.styleFrom(
-        primary: Colors.tealAccent,
-        backgroundColor: Colors.tealAccent,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)));
-    ElevatedButton.styleFrom(primary: Colors.amber);
-
     return Scaffold(
-      backgroundColor: Colors.teal.shade50,
       appBar: AppBar(
-          title: Text(
-            'TURANGI TIGHT LINES',
-            style: theme.textTheme.headline5,
-          ),
+          title: Row(children: [
+            Text(
+              'Turangi Tight Lines',
+              style: theme.textTheme.headline5,
+            ),
+            Spacer(flex: 2),
+            Container(
+              height: 40,
+              width: 50,
+              child:
+                  Image.asset('assets/images/trout.png', color: Colors.white),
+            ),
+            Spacer(flex: 6),
+          ]),
           actions: <Widget>[
             TextButton(
-                style: logbuttonstyle,
+                style: theme.textButtonTheme.style,
                 onPressed: () {
                   FirebaseAuth.instance.authStateChanges().listen((User? user) {
                     if (user == null) {
@@ -66,19 +60,15 @@ class _HomeViewState extends State<HomeView>
                     }
                   });
                 },
-                child: Text('LOG', style: theme.textTheme.bodyText2)),
+                child: Text('LOG')),
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(50),
             child: TabBar(
               controller: tabbarcontroller,
-              labelStyle: TextStyle(fontSize: 16.0),
-              // labelColor: Colors.amber,
-              unselectedLabelStyle: TextStyle(fontSize: 12),
-              // unselectedLabelColor: Colors.teal,
               tabs: <Widget>[
-                Tab(text: 'TONGARIRO'),
-                Tab(text: 'LAKE O'),
+                Tab(text: 'Tongariro'),
+                Tab(text: 'Lake O'),
                 Tab(text: 'TT'),
               ],
             ),
