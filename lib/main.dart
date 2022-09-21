@@ -3,13 +3,13 @@ import 'package:ttlines2/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:ttlines2/ui/themes.dart';
 import 'package:ttlines2/ui/views/Confetti_Screen.dart';
-import 'package:ttlines2/ui/views/Create_Catch.dart';
+
 import 'package:ttlines2/ui/views/TT.dart';
 import 'package:ttlines2/ui/views/Lake_Omg.dart';
 import 'package:ttlines2/ui/views/TT_webview.dart';
-import 'package:ttlines2/ui/views/fish_summary_map.dart';
+
 import 'package:ttlines2/ui/views/home.dart';
-import 'package:ttlines2/ui/views/maps.dart';
+
 import 'package:ttlines2/ui/views/troutDataLog.dart';
 import 'package:ttlines2/ui/views/login_view.dart';
 

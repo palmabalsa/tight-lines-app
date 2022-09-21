@@ -82,6 +82,7 @@ Future<TroutData> newCatch(TroutData myCatch) async {
 
 Future<List<TroutData>> fetchTroutData() async {
   String userToken = await FirebaseAuth.instance.currentUser!.getIdToken();
+  print(userToken);
 
   Map<String, String> headers = {
     'Content-Type': 'application/json; UTF-8',

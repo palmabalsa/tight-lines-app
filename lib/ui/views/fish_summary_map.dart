@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
-
+import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
+import 'package:label_marker/label_marker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ttlines2/services/trout_data_api.dart';
@@ -44,8 +45,6 @@ class _fishSummaryMapViewState extends State<fishSummaryMapView> {
   void _onMapCreated(GoogleMapController controller) {
     summaryMapController = controller;
   }
-  // BubbleIconFactory caughtFish = BubbleIconFactory;
-  // IconGenerator
 
   @override
   void initState() {
