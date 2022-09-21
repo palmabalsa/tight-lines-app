@@ -1,4 +1,5 @@
 // ignore_for_file: must_be_immutable
+import 'package:label_marker/label_marker.dart';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -18,7 +19,8 @@ class MapsView extends StatefulWidget {
 
 class _MapsViewState extends State<MapsView> {
   late GoogleMapController mapController;
-  List<Marker> Markers = [];
+  List<Marker> hello = [];
+  Set<Marker> Markers = {};
   LatLng TongaLatLon = LatLng(-38.993070, 175.818593);
   LatLng TTLatLon = LatLng(-38.93823, 175.9111);
   LatLng LakeOLatLon = LatLng(-38.99823, 175.62021);
@@ -54,33 +56,48 @@ class _MapsViewState extends State<MapsView> {
 
   addMarkers() {
     for (String poolKey in tongariroPools.keys) {
-      Markers.add(Marker(
-        // consumeTapEvents: true,
+      // Markers.add(Marker(
+      Markers.addLabelMarker(LabelMarker(
+        label: poolKey,
+        backgroundColor: Colors.green,
+        textStyle: TextStyle(
+            fontSize: 50.0,
+            color: Colors.black,
+            letterSpacing: 1.0,
+            fontFamily: 'Roboto Bold'),
+
         markerId: MarkerId(poolKey),
         position: tongariroPools[poolKey],
         draggable: false,
         // onTap: ,
-        infoWindow: InfoWindow(
-          title: poolKey,
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => NewCatchView(
-                        latLon: tongariroPools[poolKey], pool: poolKey)));
-          },
-        ),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-      ));
+        // infoWindow: InfoWindow(
+        //   title: poolKey,
+        consumeTapEvents: true,
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => NewCatchView(
+                      latLon: tongariroPools[poolKey], pool: poolKey)));
+        },
+        // ),
+        // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+      )).then((value) {
+        setState(() {});
+      });
     }
+    // List hello = Markers.toList();
+    // return hello;
   }
 
-  List<Marker> addNewMarker(LatLng tappedLocation) {
+  Set<Marker> addNewMarker(LatLng tappedLocation) {
     setState(() {
       var markerID = tappedLocation.toString();
-      Markers.length > 11 ? Markers.removeLast() : null;
-      // markers.clear();
-      // addMarkers();
+      // hello = Markers.toList();
+      // hello.length > 11 ? hello.removeLast() : null;
+      // Markers.length > 11 ? Markers.removeLast() : null;
+      Markers.clear();
+      addMarkers();
       Markers.add(Marker(
         consumeTapEvents: true,
         markerId: MarkerId(markerID),
@@ -131,7 +148,8 @@ class _MapsViewState extends State<MapsView> {
         // myLocationEnabled: true,
 
         onMapCreated: _onMapCreated,
-        markers: Set.from(Markers),
+        // markers: Set.from(Markers),
+        markers: Markers,
         initialCameraPosition: CameraPosition(
           target: determineCenter(),
           zoom: 15.0,
