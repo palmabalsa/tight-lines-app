@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ttlines2">
+    package="com.palmabalsa.ttlines2">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="Tight Lines"
