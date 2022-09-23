@@ -59,18 +59,12 @@ dev_dependencies:
   test: ^1.21.4
   
 flutter_icons:
-  image_path: assets/icon/vectortrout.png
-  adaptive_icon_background: '#1de9b6'
-  adaptive_icon_foreground: assets/icon/vectortroutsolo.png
   android: true
   ios: true
+  image_path: assets/icon/trout_logo.png
+  # adaptive_icon_background: '#1de9b6'
+  # adaptive_icon_foreground: assets/icon/vectortroutsolo.png
   remove_alpha_ios: true
-
-
-  # flutter_icons:
-  # android: "launcher_icon"
-  # ios: true
-  # image_path: "assets/icon/vectortroutwhite.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
