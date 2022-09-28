@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:ttlines2/services/one_call_weather.dart';
 import 'dart:async';
-import 'package:ttlines2/ui/widgets/WeatherCardDisplay.dart';
-import 'package:ttlines2/ui/widgets/weather48hrListTile.dart';
+import 'package:ttlines2/ui/widgets/weather_card_display.dart';
+import 'package:ttlines2/ui/widgets/weather_48hr_list_tile.dart';
 import 'package:intl/intl.dart';
 
-class weatherForecastView extends StatefulWidget {
-  weatherForecastView({
+class WeatherForecastView extends StatefulWidget {
+  WeatherForecastView({
     Key? key,
     required this.riverName,
     required this.lat,
@@ -21,10 +21,10 @@ class weatherForecastView extends StatefulWidget {
   String lon;
 
   @override
-  State<weatherForecastView> createState() => _weatherForecastViewState();
+  State<WeatherForecastView> createState() => _WeatherForecastViewState();
 }
 
-class _weatherForecastViewState extends State<weatherForecastView> {
+class _WeatherForecastViewState extends State<WeatherForecastView> {
   late Future<WeatherDataList> aloha;
 
   late String lat = widget.lat;
@@ -32,27 +32,31 @@ class _weatherForecastViewState extends State<weatherForecastView> {
 
   Icon getWindArrow(int windDir) {
     if (windDir >= 338 && windDir <= 360 || windDir >= 0 && windDir <= 22) {
-      return Icon(MaterialCommunityIcons.arrow_up, color: Colors.blueGrey);
+      return const Icon(MaterialCommunityIcons.arrow_up,
+          color: Colors.blueGrey);
     } else if (windDir >= 23 && windDir <= 67) {
-      return Icon(MaterialCommunityIcons.arrow_top_right,
+      return const Icon(MaterialCommunityIcons.arrow_top_right,
           color: Colors.blueGrey);
     } else if (windDir >= 68 && windDir <= 112) {
-      return Icon(MaterialCommunityIcons.arrow_right, color: Colors.blueGrey);
+      return const Icon(MaterialCommunityIcons.arrow_right,
+          color: Colors.blueGrey);
     } else if (windDir >= 113 && windDir <= 157) {
-      return Icon(MaterialCommunityIcons.arrow_bottom_right,
+      return const Icon(MaterialCommunityIcons.arrow_bottom_right,
           color: Colors.blueGrey);
     } else if (windDir >= 158 && windDir <= 202) {
-      return Icon(MaterialCommunityIcons.arrow_down, color: Colors.blueGrey);
+      return const Icon(MaterialCommunityIcons.arrow_down,
+          color: Colors.blueGrey);
     } else if (windDir >= 203 && windDir <= 247) {
-      return Icon(MaterialCommunityIcons.arrow_left, color: Colors.blueGrey);
+      return const Icon(MaterialCommunityIcons.arrow_left,
+          color: Colors.blueGrey);
     } else if (windDir >= 248 && windDir <= 292) {
-      return Icon(MaterialCommunityIcons.arrow_bottom_left,
+      return const Icon(MaterialCommunityIcons.arrow_bottom_left,
           color: Colors.blueGrey);
     } else if (windDir >= 293 && windDir <= 337) {
-      return Icon(MaterialCommunityIcons.arrow_top_left,
+      return const Icon(MaterialCommunityIcons.arrow_top_left,
           color: Colors.blueGrey);
     } else {
-      return Icon(Icons.abc);
+      return const Icon(Icons.abc);
     }
   }
 
@@ -65,7 +69,7 @@ class _weatherForecastViewState extends State<weatherForecastView> {
   String theWeekDay = 'Monday';
   String theMonth = 'Jan';
 
-  void DateFormatter(String weekday, String month) {
+  void dateFormatter(String weekday, String month) {
     Map<String, String> dayDate = {
       "1": "Monday",
       "2": "Tuesday",
@@ -106,14 +110,14 @@ class _weatherForecastViewState extends State<weatherForecastView> {
         body: Center(
             child: ListView(scrollDirection: Axis.vertical, children: <Widget>[
           Padding(
-              padding: EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 0.0),
+              padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 0.0),
               child: Column(
                 children: <Widget>[
                   FutureBuilder<WeatherDataList>(
                       future: aloha,
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          return Container(
+                          return SizedBox(
                               height: 700,
                               child: Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -123,20 +127,20 @@ class _weatherForecastViewState extends State<weatherForecastView> {
                                       scrollDirection: Axis.vertical,
                                       itemBuilder: (context, index) {
                                         String firstWeatherIcon = snapshot.data!
-                                            .weatherList[0].weather_main[0].icon
+                                            .weatherList[0].weatherMain[0].icon
                                             .toString();
                                         String firstTemperature = snapshot
-                                            .data!.weatherList[0].temp.day_temp
+                                            .data!.weatherList[0].temp.dayTemp
                                             .toStringAsFixed(0);
                                         String firstWindSpeed = snapshot
-                                            .data!.weatherList[0].wind_speed
+                                            .data!.weatherList[0].windSpeed
                                             .toStringAsFixed(0);
                                         String firstdescription = snapshot
                                             .data!
                                             .weatherList[0]
-                                            .weather_main[0]
+                                            .weatherMain[0]
                                             .description;
-                                        String firsthourlyIcon = snapshot
+                                        String firstHourlyIcon = snapshot
                                             .data!
                                             .hourlyWeatherList[0]
                                             .hourlyWeatherIcon[0]
@@ -146,7 +150,7 @@ class _weatherForecastViewState extends State<weatherForecastView> {
                                         String weathericon = snapshot
                                             .data!
                                             .weatherList[index]
-                                            .weather_main[0]
+                                            .weatherMain[0]
                                             .icon
                                             .toString();
                                         final currentDate = DateTime.parse(
@@ -157,28 +161,28 @@ class _weatherForecastViewState extends State<weatherForecastView> {
                                             currentDate.weekday.toString();
                                         String monthNumber =
                                             currentDate.month.toString();
-                                        DateFormatter(
+                                        dateFormatter(
                                             weekdayNumber, monthNumber);
                                         String temperature = snapshot.data!
-                                            .weatherList[index].temp.day_temp
+                                            .weatherList[index].temp.dayTemp
                                             .toStringAsFixed(0);
                                         String windSpeed = snapshot
-                                            .data!.weatherList[index].wind_speed
+                                            .data!.weatherList[index].windSpeed
                                             .toStringAsFixed(0);
                                         num windDirectionNum = snapshot
-                                            .data!.weatherList[index].wind_deg;
+                                            .data!.weatherList[index].windDeg;
                                         int winddirectionNN =
                                             windDirectionNum as int;
                                         // String windDirection = snapshot.data!.weatherList[index].wind_deg.toStringAsFixed(0);
                                         String description = snapshot
                                             .data!
                                             .weatherList[index]
-                                            .weather_main[0]
+                                            .weatherMain[0]
                                             .description;
                                         var currentWindIcon =
                                             getWindArrow(winddirectionNN);
 
-                                        if (index == 0)
+                                        if (index == 0) {
                                           return WeatherReportCard(
                                             isInitialCard: true,
                                             weekday: theWeekDay,
@@ -193,7 +197,8 @@ class _weatherForecastViewState extends State<weatherForecastView> {
                                               itemCount: snapshot.data!
                                                   .hourlyWeatherList.length,
                                               scrollDirection: Axis.vertical,
-                                              physics: ClampingScrollPhysics(),
+                                              physics:
+                                                  const ClampingScrollPhysics(),
                                               shrinkWrap: true,
                                               itemBuilder:
                                                   (BuildContext context,
@@ -212,14 +217,14 @@ class _weatherForecastViewState extends State<weatherForecastView> {
                                                 String hourlyWindDeg = snapshot
                                                     .data!
                                                     .hourlyWeatherList[index]
-                                                    .hourlyWind_deg
+                                                    .hourlyWindDeg
                                                     .toStringAsFixed(0);
                                                 num hourlyWindDirectionNum =
                                                     snapshot
                                                         .data!
                                                         .hourlyWeatherList[
                                                             index]
-                                                        .hourlyWind_deg;
+                                                        .hourlyWindDeg;
                                                 int hourlyWindDegAsInt =
                                                     hourlyWindDirectionNum
                                                         as int;
@@ -231,7 +236,7 @@ class _weatherForecastViewState extends State<weatherForecastView> {
                                                         .data!
                                                         .hourlyWeatherList[
                                                             index]
-                                                        .hourlyWind_speed
+                                                        .hourlyWindSpeed
                                                         .toStringAsFixed(0);
                                                 String hourlyWeatherIcon =
                                                     snapshot
@@ -242,7 +247,7 @@ class _weatherForecastViewState extends State<weatherForecastView> {
                                                         .hourlyIcon
                                                         .toString();
 
-                                                return weatherListTile(
+                                                return WeatherListTile(
                                                     hour: hour,
                                                     hourlyTemperature:
                                                         hourlyTemperature,
@@ -255,7 +260,7 @@ class _weatherForecastViewState extends State<weatherForecastView> {
                                               },
                                             ),
                                           );
-                                        else if (index > 0)
+                                        } else if (index > 0) {
                                           return WeatherReportCard(
                                             isInitialCard: false,
                                             weekday: theWeekDay,
@@ -267,11 +272,12 @@ class _weatherForecastViewState extends State<weatherForecastView> {
                                             windIcon: currentWindIcon,
                                             description: description,
                                           );
-                                        else if (snapshot.hasError)
+                                        } else if (snapshot.hasError) {
                                           throw Exception(
                                               'theres an error mate');
+                                        }
 
-                                        return SizedBox(
+                                        return const SizedBox(
                                           height: 200.0,
                                           child: Center(
                                               child:
@@ -281,7 +287,7 @@ class _weatherForecastViewState extends State<weatherForecastView> {
                         } else if (snapshot.hasError) {
                           throw Exception('theres an error mate');
                         }
-                        return SizedBox(
+                        return const SizedBox(
                           height: 200.0,
                           child: Center(child: CircularProgressIndicator()),
                         );

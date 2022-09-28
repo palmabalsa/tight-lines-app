@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class TTWebview extends StatefulWidget {
-  TTWebview({Key? key}) : super(key: key);
+  const TTWebview({Key? key}) : super(key: key);
 
   @override
   State<TTWebview> createState() => _TTWebviewState();

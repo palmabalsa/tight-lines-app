@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:ttlines2/ui/views/Lake_Omg.dart';
-import 'package:ttlines2/ui/views/TT.dart';
-import 'package:ttlines2/ui/views/Tongariro.dart';
+import 'package:ttlines2/ui/views/lake_omg.dart';
+import 'package:ttlines2/ui/views/tt.dart';
+import 'package:ttlines2/ui/views/tongariro.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class HomeView extends StatefulWidget {
@@ -39,14 +39,14 @@ class _HomeViewState extends State<HomeView>
               'Turangi Tight Lines',
               style: theme.textTheme.headline5,
             ),
-            Spacer(flex: 2),
-            Container(
+            const Spacer(flex: 2),
+            SizedBox(
               height: 40,
               width: 50,
               child:
                   Image.asset('assets/images/trout.png', color: Colors.white),
             ),
-            Spacer(flex: 6),
+            const Spacer(flex: 6),
           ]),
           actions: <Widget>[
             TextButton(
@@ -60,13 +60,13 @@ class _HomeViewState extends State<HomeView>
                     }
                   });
                 },
-                child: Text('LOG')),
+                child: const Text('LOG')),
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(50),
             child: TabBar(
               controller: tabbarcontroller,
-              tabs: <Widget>[
+              tabs: const <Widget>[
                 Tab(text: 'Tongariro'),
                 Tab(text: 'Lake O'),
                 Tab(text: 'TT'),
@@ -76,7 +76,7 @@ class _HomeViewState extends State<HomeView>
       body: Center(
           child: TabBarView(
         controller: tabbarcontroller,
-        children: <Widget>[
+        children: const <Widget>[
           TongariroView(),
           LakeOmgView(),
           TaurangaTaupoView(),

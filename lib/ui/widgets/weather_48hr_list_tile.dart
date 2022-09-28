@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 
-class weatherListTile extends StatelessWidget {
-  weatherListTile({
+class WeatherListTile extends StatelessWidget {
+  WeatherListTile({
     Key? key,
     required this.hour,
     required this.hourlyTemperature,
@@ -21,21 +21,21 @@ class weatherListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       dense: true,
-      contentPadding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
+      contentPadding: const EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
       leading: Text(hour),
-      title: Container(
+      title: SizedBox(
           width: 5,
           child: Row(children: <Widget>[
-            Spacer(),
+            const Spacer(),
             Image.network(
                 'http://openweathermap.org/img/w/$hourlyWeatherIcon.png'),
             Text(
               '$hourlyTemperature °C',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
-            Spacer(flex: 10),
+            const Spacer(flex: 10),
             Text(hourlyWindSpeed,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.blueGrey, fontWeight: FontWeight.bold)),
             hourlyWindIcon,
           ])),

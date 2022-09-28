@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ttlines2/ui/widgets/RiverDropDownMenu.dart';
-import 'package:ttlines2/ui/widgets/RiverLevelCard.dart';
+import 'package:ttlines2/ui/widgets/river_drop_down_menu.dart';
+import 'package:ttlines2/ui/widgets/river_level_card.dart';
 
 class LakeOmgView extends StatefulWidget {
   const LakeOmgView({
@@ -30,7 +30,7 @@ class _LakeOmgViewState extends State<LakeOmgView> {
         body: Center(
             child: ListView(scrollDirection: Axis.vertical, children: <Widget>[
       Column(children: <Widget>[
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         RiverDropDown(
           riverName: 'Lake O',
           lat: lakeOLat,

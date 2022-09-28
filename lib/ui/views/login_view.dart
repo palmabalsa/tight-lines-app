@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ttlines2/ui/widgets/RegistrationForm.dart';
-import 'package:ttlines2/ui/widgets/SignInForm.dart';
+import 'package:ttlines2/ui/widgets/registration_form.dart';
+import 'package:ttlines2/ui/widgets/sign_in_form.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -35,34 +35,34 @@ class _LoginViewState extends State<LoginView>
             'Turangi Tight Lines',
             style: theme.textTheme.headline5,
           ),
-          Spacer(flex: 2),
-          Container(
+          const Spacer(flex: 2),
+          SizedBox(
             height: 40,
             width: 50,
             child: Image.asset('assets/images/trout.png', color: Colors.white),
           ),
-          Spacer(flex: 6),
+          const Spacer(flex: 6),
         ]),
       ),
       body: Center(
         child: Container(
           decoration: BoxDecoration(
               color: Colors.teal.shade100,
-              borderRadius: BorderRadius.all(Radius.circular(20))),
+              borderRadius: const BorderRadius.all(Radius.circular(20))),
           height: 500,
-          margin: EdgeInsets.fromLTRB(30, 5, 30, 70),
-          padding: EdgeInsets.all(5),
+          margin: const EdgeInsets.fromLTRB(30, 5, 30, 70),
+          padding: const EdgeInsets.all(5),
           child: ListView(
             children: <Widget>[
-              TabBar(controller: loginTabController, tabs: <Widget>[
+              TabBar(controller: loginTabController, tabs: const <Widget>[
                 Tab(text: 'Sign In'),
                 Tab(text: 'Register'),
               ]),
-              Container(
+              SizedBox(
                   height: 400,
                   child: TabBarView(
                       controller: loginTabController,
-                      children: <Widget>[
+                      children: const <Widget>[
                         SignInForm(),
                         RegistrationForm(),
                       ]))

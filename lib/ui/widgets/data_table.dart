@@ -7,7 +7,7 @@ import 'package:ttlines2/ui/views/maps.dart';
 
 // ignore: must_be_immutable
 class TroutDataTable extends StatefulWidget {
-  TroutDataTable({
+  const TroutDataTable({
     Key? key,
   }) : super(key: key);
 
@@ -41,7 +41,7 @@ class _TroutDataTableState extends State<TroutDataTable> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    // var theme = Theme.of(context);
 
     return FutureBuilder<List<TroutData>>(
         future: fishTime,
@@ -58,7 +58,7 @@ class _TroutDataTableState extends State<TroutDataTable> {
               PaginatedDataTable(
                 source: newTroutDataSource,
                 header: Row(children: [
-                  Container(
+                  SizedBox(
                     width: 150,
                     height: 40,
                     child: DropdownButtonFormField<String>(
@@ -66,39 +66,43 @@ class _TroutDataTableState extends State<TroutDataTable> {
                       decoration: InputDecoration(
                         fillColor: Colors.teal.shade50,
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(99)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(99)),
                             borderSide:
                                 BorderSide(color: Colors.grey.shade800)),
                         enabled: false,
                       ),
-                      icon: Icon(Icons.add_circle, color: Colors.teal),
+                      icon: const Icon(Icons.add_circle, color: Colors.teal),
                       hint: Text(' Add Catch',
                           style: TextStyle(
                               color: Colors.teal.shade700,
                               fontWeight: FontWeight.bold)),
                       isExpanded: true,
-                      items: [
+                      items: const [
                         DropdownMenuItem<String>(
-                            child: Text('Tongariro',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 14)),
-                            value: 'Tongariro'),
+                          value: 'Tongariro',
+                          child: Text('Tongariro',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 14)),
+                        ),
                         DropdownMenuItem<String>(
-                            child: Text('TT',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 14)),
-                            value: 'TT'),
+                          value: 'TT',
+                          child: Text('TT',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 14)),
+                        ),
                         DropdownMenuItem<String>(
-                            child: Text('Lake O',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w900,
-                                    fontSize: 14)),
-                            value: 'Lake O'),
+                          value: 'Lake O',
+                          child: Text('Lake O',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: 14)),
+                        ),
                       ],
                       onChanged: (selectedValue) {
                         setState(() {
@@ -119,11 +123,11 @@ class _TroutDataTableState extends State<TroutDataTable> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => fishSummaryMapView(
+                                builder: (context) => FishSummaryMapView(
                                     summarydata: troutdataincoming)));
                         // Navigator.pushNamed(context, '/fishSummary');
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         MaterialCommunityIcons.map_outline,
                         color: Colors.teal,
                       )),
@@ -142,7 +146,7 @@ class _TroutDataTableState extends State<TroutDataTable> {
                           //   // fishTime = fetchTroutData();
                         });
                       },
-                      icon: Icon(
+                      icon: const Icon(
                         MaterialIcons.delete,
                         color: Colors.teal,
                       )),
@@ -161,42 +165,42 @@ class _TroutDataTableState extends State<TroutDataTable> {
                 showCheckboxColumn: false,
                 arrowHeadColor: Colors.teal,
                 columns: <DataColumn>[
-                  DataColumn(
+                  const DataColumn(
                     label: Text('DATE'),
                     //   onSort: (int columnIndex, bool ascending) => _sort<String>(
                     //       (TroutData d) => d.date, columnIndex, ascending)
                   ),
                   DataColumn(
-                      label: Text('RIVER'),
+                      label: const Text('RIVER'),
                       onSort: (int columnIndex, bool ascending) =>
                           _sort<String>((TroutData d) => d.river, columnIndex,
                               ascending)),
                   DataColumn(
-                      label: Text('POOL'),
+                      label: const Text('POOL'),
                       onSort: (int columnIndex, bool ascending) =>
-                          _sort<String>((TroutData d) => d.river_pool!,
+                          _sort<String>((TroutData d) => d.riverPool!,
                               columnIndex, ascending)),
                   DataColumn(
-                      label: Text('SPECIES'),
+                      label: const Text('SPECIES'),
                       onSort: (int columnIndex, bool ascending) =>
-                          _sort<String>((TroutData d) => d.fish_species,
+                          _sort<String>((TroutData d) => d.fishSpecies,
                               columnIndex, ascending)),
                   DataColumn(
-                      label: Text('CONDITION'),
+                      label: const Text('CONDITION'),
                       onSort: (int columnIndex, bool ascending) =>
-                          _sort<String>((TroutData d) => d.fish_condition,
+                          _sort<String>((TroutData d) => d.fishCondition,
                               columnIndex, ascending)),
                   DataColumn(
-                      label: Text('WEIGHT'),
+                      label: const Text('WEIGHT'),
                       onSort: (int columnIndex, bool ascending) =>
-                          _sort<String>((TroutData d) => d.fish_weight!,
+                          _sort<String>((TroutData d) => d.fishWeight!,
                               columnIndex, ascending)),
                   DataColumn(
-                      label: Text('FLY'),
+                      label: const Text('FLY'),
                       onSort: (int columnIndex, bool ascending) =>
-                          _sort<String>((TroutData d) => d.fly_used!,
+                          _sort<String>((TroutData d) => d.flyUsed!,
                               columnIndex, ascending)),
-                  DataColumn(
+                  const DataColumn(
                     label: Text('NOTES'),
                     // onSort: (int columnIndex, bool ascending) => _sort<String>(
                     //     (TroutData d) => d.any_notes, columnIndex, ascending)
@@ -205,7 +209,7 @@ class _TroutDataTableState extends State<TroutDataTable> {
               ),
             ]);
           } else {
-            return SizedBox(
+            return const SizedBox(
               height: 500,
               child:
                   Center(heightFactor: 300, child: CircularProgressIndicator()),
@@ -261,7 +265,7 @@ class TroutDatasource extends DataTableSource {
             assert(selectedCount >= 0);
             troutcatchdata.thisoneselected = value;
             notifyListeners();
-            print(selectedCount);
+            // print(selectedCount);
           }
 
           if (troutcatchdata.thisoneselected == value &&
@@ -271,17 +275,17 @@ class TroutDatasource extends DataTableSource {
               selectedcatchestodelete.contains(troutcatchdata.id)) {
             selectedcatchestodelete.remove(troutcatchdata.id!);
           }
-          print(selectedcatchestodelete);
+          // print(selectedcatchestodelete);
         },
         cells: <DataCell>[
-          DataCell(Text(dateFormatting('${troutcatchdata.date.toString()}'))),
+          DataCell(Text(dateFormatting(troutcatchdata.date.toString()))),
           DataCell(Text(troutcatchdata.river == 'Tongariro'
               ? 'Tonga'
               : troutcatchdata.river == 'Tauranga Taupo'
                   ? 'TT'
                   : troutcatchdata.river)),
-          DataCell(Text('${troutcatchdata.river_pool}')),
-          DataCell(troutcatchdata.fish_species == 'Rainbow'
+          DataCell(Text('${troutcatchdata.riverPool}')),
+          DataCell(troutcatchdata.fishSpecies == 'Rainbow'
               ? SizedBox(
                   height: 80,
                   width: 60,
@@ -292,10 +296,10 @@ class TroutDatasource extends DataTableSource {
                   height: 80,
                   width: 60,
                   child: Image.asset('assets/images/darkbrown_trout.png'))),
-          DataCell(Text('${troutcatchdata.fish_condition}')),
-          DataCell(Text('${troutcatchdata.fish_weight.toString()} kg')),
-          DataCell(Text('${troutcatchdata.fly_used}')),
-          DataCell(Text('${troutcatchdata.any_notes}')),
+          DataCell(Text(troutcatchdata.fishCondition)),
+          DataCell(Text('${troutcatchdata.fishWeight.toString()} kg')),
+          DataCell(Text('${troutcatchdata.flyUsed}')),
+          DataCell(Text('${troutcatchdata.anyNotes}')),
         ]);
   }
 
@@ -309,9 +313,10 @@ class TroutDatasource extends DataTableSource {
   int get selectedRowCount => selectedCount;
 
   void selectAll(bool? checked) {
-    for (TroutData troutcatchdata in fishDataSource)
+    for (TroutData troutcatchdata in fishDataSource) {
       troutcatchdata.thisoneselected = checked!;
-    selectedCount = checked! ? fishDataSource.length : 0;
-    notifyListeners();
+      selectedCount = checked ? fishDataSource.length : 0;
+      notifyListeners();
+    }
   }
 }

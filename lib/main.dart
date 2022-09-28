@@ -2,15 +2,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:ttlines2/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:ttlines2/ui/themes.dart';
-import 'package:ttlines2/ui/views/Confetti_Screen.dart';
+import 'package:ttlines2/ui/views/confetti_screen.dart';
 
-import 'package:ttlines2/ui/views/TT.dart';
-import 'package:ttlines2/ui/views/Lake_Omg.dart';
-import 'package:ttlines2/ui/views/TT_webview.dart';
+import 'package:ttlines2/ui/views/tt.dart';
+import 'package:ttlines2/ui/views/lake_omg.dart';
+import 'package:ttlines2/ui/views/tt_webview.dart';
 
 import 'package:ttlines2/ui/views/home.dart';
 
-import 'package:ttlines2/ui/views/troutDataLog.dart';
+import 'package:ttlines2/ui/views/trout_data_log.dart';
 import 'package:ttlines2/ui/views/login_view.dart';
 
 Future<void> main() async {
@@ -34,14 +34,11 @@ class MyApp extends StatelessWidget {
         routes: <String, WidgetBuilder>{
           '/': (context) => const HomeView(),
           '/taurangataupo': (context) => const TaurangaTaupoView(),
-          '/tt_level': (context) => TTWebview(),
+          '/tt_level': (context) => const TTWebview(),
           '/lakeO': (context) => const LakeOmgView(),
-          '/fishinglog': (context) => TroutDataView(),
-          '/login': (context) => LoginView(),
-          // '/newcatch': (context) => NewCatchView(),
+          '/fishinglog': (context) => const TroutDataView(),
+          '/login': (context) => const LoginView(),
           '/confetti': (context) => ConfettiPlayer(),
-          // '/fishSummary': (context) => fishSummaryMapView(),
-          // '/map': (context) => MapsView(),
         });
   }
 }

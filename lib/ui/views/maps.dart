@@ -1,9 +1,7 @@
-// ignore_for_file: must_be_immutable
 import 'package:label_marker/label_marker.dart';
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:ttlines2/ui/views/Create_Catch.dart';
+import 'package:ttlines2/ui/views/create_catch.dart';
 
 class MapsView extends StatefulWidget {
   MapsView({
@@ -20,34 +18,35 @@ class MapsView extends StatefulWidget {
 class _MapsViewState extends State<MapsView> {
   late GoogleMapController mapController;
   List<Marker> hello = [];
-  Set<Marker> Markers = {};
-  LatLng TongaLatLon = LatLng(-38.993070, 175.818593);
-  LatLng TTLatLon = LatLng(-38.93823, 175.9111);
-  LatLng LakeOLatLon = LatLng(-38.99823, 175.62021);
+  Set<Marker> markers = {};
+  LatLng tongaLatLon = const LatLng(-38.993070, 175.818593);
+  LatLng ttLatLon = const LatLng(-38.93823, 175.9111);
+  LatLng lakeOLatLon = const LatLng(-38.99823, 175.62021);
 
   LatLng determineCenter() {
     if (widget.riverName == 'Tongariro') {
-      return TongaLatLon;
+      return tongaLatLon;
     } else if (widget.riverName == 'TT') {
-      return TTLatLon;
+      return ttLatLon;
     } else if (widget.riverName == 'Lake O') {
-      return LakeOLatLon;
-    } else
-      return TongaLatLon;
+      return lakeOLatLon;
+    } else {
+      return tongaLatLon;
+    }
   }
 
   Map<String, dynamic> tongariroPools = {
-    'Bridge': LatLng(-38.986123, 175.818550),
-    'Judges': LatLng(-38.990238, 175.818796),
-    'Major Jones': LatLng(-38.999114, 175.812740),
-    'Breakfast': LatLng(-38.996442, 175.812594),
-    'Duchess': LatLng(-39.026716, 175.814982),
-    'Red Hut': LatLng(-39.030650, 175.813866),
-    'Cliff': LatLng(-39.040400, 175.822020),
-    'Stag': LatLng(-39.013246, 175.815368),
-    'Hydro': LatLng(-39.002474, 175.813072),
-    'Log': LatLng(-38.973337, 175.807536),
-    'Reed': LatLng(-38.972986, 175.803330),
+    'Bridge': const LatLng(-38.986123, 175.818550),
+    'Judges': const LatLng(-38.990238, 175.818796),
+    'Major Jones': const LatLng(-38.999114, 175.812740),
+    'Breakfast': const LatLng(-38.996442, 175.812594),
+    'Duchess': const LatLng(-39.026716, 175.814982),
+    'Red Hut': const LatLng(-39.030650, 175.813866),
+    'Cliff': const LatLng(-39.040400, 175.822020),
+    'Stag': const LatLng(-39.013246, 175.815368),
+    'Hydro': const LatLng(-39.002474, 175.813072),
+    'Log': const LatLng(-38.973337, 175.807536),
+    'Reed': const LatLng(-38.972986, 175.803330),
   };
 
   void _onMapCreated(GoogleMapController controller) {
@@ -57,10 +56,11 @@ class _MapsViewState extends State<MapsView> {
   addMarkers() {
     for (String poolKey in tongariroPools.keys) {
       // Markers.add(Marker(
-      Markers.addLabelMarker(LabelMarker(
+      markers
+          .addLabelMarker(LabelMarker(
         label: poolKey,
         backgroundColor: Colors.green,
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
             fontSize: 50.0,
             color: Colors.black,
             letterSpacing: 1.0,
@@ -82,7 +82,8 @@ class _MapsViewState extends State<MapsView> {
         },
         // ),
         // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
-      )).then((value) {
+      ))
+          .then((value) {
         setState(() {});
       });
     }
@@ -96,9 +97,9 @@ class _MapsViewState extends State<MapsView> {
       // hello = Markers.toList();
       // hello.length > 11 ? hello.removeLast() : null;
       // Markers.length > 11 ? Markers.removeLast() : null;
-      Markers.clear();
+      markers.clear();
       addMarkers();
-      Markers.add(Marker(
+      markers.add(Marker(
         consumeTapEvents: true,
         markerId: MarkerId(markerID),
         position: tappedLocation,
@@ -112,7 +113,7 @@ class _MapsViewState extends State<MapsView> {
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
       ));
     });
-    return Markers;
+    return markers;
   }
 
   @override
@@ -134,13 +135,13 @@ class _MapsViewState extends State<MapsView> {
             preferredSize: const Size.fromHeight(50),
             child: Column(children: [
               Row(children: [
-                Spacer(),
-                Icon(Icons.location_pin),
+                const Spacer(),
+                const Icon(Icons.location_pin),
                 Text('Click on a Pool, or other location to add your fish',
                     style: theme.textTheme.bodyText2),
-                Spacer(),
+                const Spacer(),
               ]),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
             ]),
           )),
       body: GoogleMap(
@@ -149,7 +150,7 @@ class _MapsViewState extends State<MapsView> {
 
         onMapCreated: _onMapCreated,
         // markers: Set.from(Markers),
-        markers: Markers,
+        markers: markers,
         initialCameraPosition: CameraPosition(
           target: determineCenter(),
           zoom: 15.0,

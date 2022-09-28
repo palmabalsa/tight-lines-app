@@ -1,5 +1,6 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
-import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 
 class Themes {
   static final light = ThemeData(
@@ -37,14 +38,14 @@ class Themes {
     ),
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
-            primary: Colors.black,
+            foregroundColor: Colors.black,
             textStyle: TextStyle(
                 fontSize: 14, color: Colors.black, fontWeight: FontWeight.w600),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(99)))),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-            primary: Colors.white,
+            foregroundColor: Colors.white,
             textStyle: TextStyle(
                 fontSize: 14, color: Colors.black, fontWeight: FontWeight.w900),
             side: BorderSide(color: Colors.grey),

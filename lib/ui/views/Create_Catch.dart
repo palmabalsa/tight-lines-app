@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ttlines2/services/trout_data_api.dart';
-import 'package:ttlines2/ui/views/Confetti_Screen.dart';
+import 'package:ttlines2/ui/views/confetti_screen.dart';
 import 'package:ttlines2/ui/widgets/form_fields.dart';
 
 // ignore: must_be_immutable
@@ -27,9 +27,7 @@ class _NewCatchViewState extends State<NewCatchView> {
 
   var currentUser = FirebaseAuth.instance.currentUser;
   String getUserUID() {
-    if (currentUser != null) {
-      print(currentUser!.uid);
-    }
+    if (currentUser != null) {}
     return currentUser!.uid;
   }
 
@@ -43,6 +41,7 @@ class _NewCatchViewState extends State<NewCatchView> {
 
   var fishSpeciesValue = 'Rainbow';
   var fishConditionValue = 'Sashimi(Excellent)';
+  // ignore: prefer_typing_uninitialized_variables
   var dateValue;
 
   DateTime startdate = DateTime.now();
@@ -58,7 +57,7 @@ class _NewCatchViewState extends State<NewCatchView> {
     List<DropdownMenuItem<String>> newList = [];
     for (String menuItem in menuOptions) {
       DropdownMenuItem<String> newItem =
-          DropdownMenuItem<String>(child: Text(menuItem), value: menuItem);
+          DropdownMenuItem<String>(value: menuItem, child: Text(menuItem));
       newList.add(newItem);
     }
     return DropdownButtonFormField<String>(
@@ -135,17 +134,19 @@ class _NewCatchViewState extends State<NewCatchView> {
         body: Center(
             child: ListView(
           children: <Widget>[
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             SingleChildScrollView(
                 child: Container(
                     decoration: BoxDecoration(
                         color: Colors.teal.shade50,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    margin: EdgeInsets.fromLTRB(50, 10, 50, 20),
-                    padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
+                    margin: const EdgeInsets.fromLTRB(50, 10, 50, 20),
+                    padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
                     width: 100,
                     height: 500,
-                    child: Container(
+                    // replaced container w sizedbox (dart said to)
+                    child: SizedBox(
                         width: 90,
                         child: Form(
                             key: _formKey,
@@ -153,12 +154,12 @@ class _NewCatchViewState extends State<NewCatchView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 DateTimePicker(
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       labelText: 'Date',
                                     ),
                                     type: DateTimePickerType.dateTime,
                                     use24HourFormat: false,
-                                    locale: Locale('en', 'US'),
+                                    locale: const Locale('en', 'US'),
                                     initialValue: lastdate.toString(),
                                     firstDate: firstdate,
                                     lastDate: DateTime.now(),
@@ -170,7 +171,7 @@ class _NewCatchViewState extends State<NewCatchView> {
                                     validator: (value) {
                                       return null;
                                     }),
-                                Spacer(),
+                                const Spacer(),
                                 TextFormField(
                                   decoration: InputDecoration(
                                     fillColor: Colors.teal.shade50,
@@ -178,7 +179,7 @@ class _NewCatchViewState extends State<NewCatchView> {
                                   controller: riverController,
                                   enabled: false,
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 // TextFormField(
                                 //   decoration: InputDecoration(
                                 //     fillColor: Colors.teal.shade50,
@@ -190,16 +191,16 @@ class _NewCatchViewState extends State<NewCatchView> {
                                 // Formfield(
                                 //     fieldentry: 'River pool',
                                 //     fieldController: riverPoolController),
-                                Spacer(),
+                                const Spacer(),
                                 formDropdown(
                                     menuOptions: ['Rainbow', 'Brown'],
                                     valueChoice: fishSpeciesValue,
                                     fieldName: 'Species'),
-                                Spacer(),
+                                const Spacer(),
                                 numericTextField(
                                     chosenController: fishWeightController,
                                     fieldLabel: 'Weight (kg)'),
-                                Spacer(),
+                                const Spacer(),
                                 formDropdown(
                                     menuOptions: [
                                       'Sashimi (Excellent)',
@@ -209,11 +210,11 @@ class _NewCatchViewState extends State<NewCatchView> {
                                     ],
                                     valueChoice: fishConditionValue,
                                     fieldName: 'Condition'),
-                                Spacer(),
+                                const Spacer(),
                                 Formfield(
                                     fieldentry: 'Fly used',
                                     fieldController: flyUsedController),
-                                Spacer(),
+                                const Spacer(),
                                 Formfield(
                                     fieldentry: 'Any notes',
                                     fieldController: anyNotesController),
@@ -232,13 +233,12 @@ class _NewCatchViewState extends State<NewCatchView> {
                                           river: riverController.text,
                                           lat: widget.latLon.latitude,
                                           lon: widget.latLon.longitude,
-                                          fish_species: fishSpeciesValue,
-                                          fish_condition: fishConditionValue,
-                                          fish_weight:
-                                              fishWeightController.text,
-                                          river_pool: poolController.text,
-                                          fly_used: flyUsedController.text,
-                                          any_notes: anyNotesController.text,
+                                          fishSpecies: fishSpeciesValue,
+                                          fishCondition: fishConditionValue,
+                                          fishWeight: fishWeightController.text,
+                                          riverPool: poolController.text,
+                                          flyUsed: flyUsedController.text,
+                                          anyNotes: anyNotesController.text,
                                         );
                                         clarity = newCatch(fishyBiz);
                                       });

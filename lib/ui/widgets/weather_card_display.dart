@@ -48,14 +48,15 @@ class WeatherReportCard extends StatelessWidget {
                     children: <Widget>[
                       Column(
                         children: <Widget>[
-                          Divider(),
-                          Divider(),
+                          const Divider(),
+                          const Divider(),
                           Text(weekday,
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                           Text('$date $month'),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Column(
                         children: <Widget>[
                           Row(
@@ -64,13 +65,13 @@ class WeatherReportCard extends StatelessWidget {
                                 Column(
                                   children: <Widget>[
                                     Text(' $temperature°C',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontSize: 15.0,
                                             fontWeight: FontWeight.bold)),
                                   ],
                                 ),
-                                SizedBox(width: 4),
+                                const SizedBox(width: 4),
                                 Column(
                                   children: <Widget>[
                                     Image.network(
@@ -78,8 +79,8 @@ class WeatherReportCard extends StatelessWidget {
                                   ],
                                 ),
                               ]),
-                          Text('$description',
-                              style: TextStyle(
+                          Text(description,
+                              style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 15.0,
                               )),
@@ -87,7 +88,7 @@ class WeatherReportCard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text('wind  $windSpeed m/s',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.blueGrey,
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.bold)),
@@ -99,18 +100,18 @@ class WeatherReportCard extends StatelessWidget {
                     ]),
                 isInitialCard == true
                     ? ExpansionTile(
-                        title: Text(
+                        title: const Text(
                           "Next 48Hrs Forecast",
                           style: TextStyle(color: Colors.teal),
                         ),
                         initiallyExpanded: true,
                         children: <Widget>[
-                            Container(
+                            SizedBox(
                                 height: 300,
                                 child: SingleChildScrollView(
                                     child: hourlyListView!))
                           ])
-                    : SizedBox(),
+                    : const SizedBox(),
               ]),
             )));
   }

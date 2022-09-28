@@ -1,12 +1,10 @@
 // ignore_for_file: must_be_immutable
-import 'package:google_maps_cluster_manager/google_maps_cluster_manager.dart';
-import 'package:label_marker/label_marker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ttlines2/services/trout_data_api.dart';
 
-class fishSummaryMapView extends StatefulWidget {
-  fishSummaryMapView({
+class FishSummaryMapView extends StatefulWidget {
+  FishSummaryMapView({
     Key? key,
     required this.summarydata,
   }) : super(key: key);
@@ -14,32 +12,32 @@ class fishSummaryMapView extends StatefulWidget {
   List<TroutData> summarydata;
 
   @override
-  State<fishSummaryMapView> createState() => _fishSummaryMapViewState();
+  State<FishSummaryMapView> createState() => _FishSummaryMapViewState();
 }
 
-class _fishSummaryMapViewState extends State<fishSummaryMapView> {
+class _FishSummaryMapViewState extends State<FishSummaryMapView> {
   late GoogleMapController summaryMapController;
-  List<Marker> Markers = [];
+  List<Marker> catchMarkers = [];
   late List<TroutData> newdata = [];
 
   List<Marker> createMarkers() {
     for (TroutData fish in widget.summarydata) {
       LatLng catchCoords = LatLng(fish.lat!, fish.lon!);
-      var fishSize = fish.fish_weight!.split('.').first.toString();
+      var fishSize = fish.fishWeight!.split('.').first.toString();
       String fishId = fish.id!.toString();
-      String fishSnippet = fishSize + 'kg ' + fish.fish_species.toString();
-      Markers.add(Marker(
+      String fishSnippet = '${fishSize}kg ${fish.fishSpecies}';
+      catchMarkers.add(Marker(
         markerId: MarkerId(fishId),
         position: catchCoords,
         draggable: false,
         infoWindow: InfoWindow(
-          title: fish.fish_species,
+          title: fish.fishSpecies,
           snippet: fishSnippet,
         ),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
       ));
     }
-    return Markers;
+    return catchMarkers;
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -62,19 +60,19 @@ class _fishSummaryMapViewState extends State<fishSummaryMapView> {
             'Trout Data',
             style: theme.textTheme.headline5,
           ),
-          Spacer(),
-          Container(
+          const Spacer(),
+          SizedBox(
             height: 40,
             width: 50,
             child: Image.asset('assets/images/trout.png', color: Colors.white),
           ),
-          Spacer(flex: 10),
+          const Spacer(flex: 10),
         ]),
       ),
       body: GoogleMap(
         onMapCreated: _onMapCreated,
-        markers: Set.from(Markers),
-        initialCameraPosition: CameraPosition(
+        markers: Set.from(catchMarkers),
+        initialCameraPosition: const CameraPosition(
           target: LatLng(-38.993070, 175.818593),
           zoom: 10.0,
         ),

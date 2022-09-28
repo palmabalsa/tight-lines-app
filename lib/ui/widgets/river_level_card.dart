@@ -20,7 +20,7 @@ class RiverLevelCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 210,
-      margin: EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 0.0),
+      margin: const EdgeInsets.fromLTRB(8.0, 5.0, 8.0, 0.0),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -29,20 +29,20 @@ class RiverLevelCard extends StatelessWidget {
         // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: Colors.white,
         child: Column(children: [
-          SizedBox(
+          const SizedBox(
             height: 6,
           ),
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-            Spacer(),
+            const Spacer(),
             Text(measuringSiteName, style: theme.textTheme.bodyText2),
-            Spacer(flex: 6),
+            const Spacer(flex: 6),
           ]),
-          SizedBox(
+          const SizedBox(
             height: 1,
           ),
           Image.network(
               'https://gesakentico.blob.core.windows.net/genesis/WebGraphs/$measuringSiteUrl$graphValue.gif'),
-          SizedBox(
+          const SizedBox(
             height: 2,
           ),
         ]),

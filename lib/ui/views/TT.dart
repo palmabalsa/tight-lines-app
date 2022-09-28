@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ttlines2/services/tt_river_level.dart';
-import 'package:ttlines2/ui/widgets/RiverDropDownMenu.dart';
+import 'package:ttlines2/ui/widgets/river_drop_down_menu.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class TaurangaTaupoView extends StatefulWidget {
@@ -16,20 +15,20 @@ class _TaurangaTaupoViewState extends State<TaurangaTaupoView> {
 
   @override
   Widget build(BuildContext context) {
-    var theme = Theme.of(context);
+    // var theme = Theme.of(context);
     return Scaffold(
         body: Center(
       child: ListView(
         scrollDirection: Axis.vertical,
         children: <Widget>[
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           RiverDropDown(riverName: 'Tauranga Taupo', lat: ttLat, lon: ttLon),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
-          Container(
+          SizedBox(
             height: 2000,
             width: 100,
             child: WebView(
