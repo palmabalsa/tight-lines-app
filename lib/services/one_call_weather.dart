@@ -1,12 +1,14 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:ttlines2/auth/keys.dart';
+import 'package:ttlines2/env/env.dart';
+
+String weatherKey = Env.weatherKey;
+String weatherUrl = Env.weatherUrl;
 
 Future<WeatherDataList> getWeatherData(String lat, String lon) async {
   final String apiUrl =
-      '***REMOVED***data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=$openWeatherApi';
+      '${weatherUrl}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=$weatherKey';
   var response = await http.get(Uri.parse(apiUrl));
 
   WeatherDataList weatherReport =
@@ -15,7 +17,7 @@ Future<WeatherDataList> getWeatherData(String lat, String lon) async {
   if (response.statusCode == 200) {
     return weatherReport;
   } else {
-    print(response.statusCode);
+    // print(response.statusCode);
     throw (Exception('error HERE'));
   }
 }
@@ -48,49 +50,49 @@ class WeatherDataList {
 
 class WeatherData {
   DateTime date;
-  num wind_speed;
-  num wind_deg;
+  num windSpeed;
+  num windDeg;
   Temp temp;
-  List<WeatherMain> weather_main;
+  List<WeatherMain> weatherMain;
 
   WeatherData({
     required this.date,
-    required this.wind_speed,
-    required this.wind_deg,
+    required this.windSpeed,
+    required this.windDeg,
     required this.temp,
-    required this.weather_main,
+    required this.weatherMain,
   });
 
   factory WeatherData.fromJson(Map<String, dynamic> json) {
-    var new_list = json['weather'] as List;
-    List<WeatherMain> weather_main_list =
-        new_list.map((item) => WeatherMain.fromJson(item)).toList();
+    var newList = json['weather'] as List;
+    List<WeatherMain> weatherMainList =
+        newList.map((item) => WeatherMain.fromJson(item)).toList();
 
     return WeatherData(
       date:
           DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false),
-      wind_speed: json['wind_speed'] as num,
-      wind_deg: json['wind_deg'] as num,
+      windSpeed: json['windSpeed'] as num,
+      windDeg: json['windDeg'] as num,
       temp: Temp.fromJson(json['temp']),
-      weather_main: weather_main_list,
+      weatherMain: weatherMainList,
     );
   }
   Map<String, dynamic> toJson() => {
         'date': date,
-        'wind_speed': wind_speed,
-        'wind_deg': wind_deg,
+        'wind_speed': windSpeed,
+        'wind_deg': windDeg,
         'temp': temp,
       };
 }
 
 class Temp {
-  num day_temp;
+  num dayTemp;
   Temp({
-    required this.day_temp,
+    required this.dayTemp,
   });
   factory Temp.fromJson(Map<String, dynamic> json) {
     return Temp(
-      day_temp: json['day'] as num,
+      dayTemp: json['day'] as num,
     );
   }
 }
@@ -120,15 +122,15 @@ class WeatherMain {
 class HourlyWeatherData {
   DateTime hour;
   num hourlyTemp;
-  num hourlyWind_deg;
-  num hourlyWind_speed;
+  num hourlyWindDeg;
+  num hourlyWindSpeed;
   List<HourlyWeatherMain> hourlyWeatherIcon;
 
   HourlyWeatherData({
     required this.hour,
     required this.hourlyTemp,
-    required this.hourlyWind_deg,
-    required this.hourlyWind_speed,
+    required this.hourlyWindDeg,
+    required this.hourlyWindSpeed,
     required this.hourlyWeatherIcon,
   });
 
@@ -143,8 +145,8 @@ class HourlyWeatherData {
       hour:
           DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false),
       hourlyTemp: json['temp'] as num,
-      hourlyWind_deg: json['wind_deg'] as num,
-      hourlyWind_speed: json['wind_speed'] as num,
+      hourlyWindDeg: json['wind_deg'] as num,
+      hourlyWindSpeed: json['wind_speed'] as num,
       hourlyWeatherIcon: hourlyIconList,
     );
   }

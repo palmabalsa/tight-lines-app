@@ -21,8 +21,12 @@ Flutter_ttlines2.code-workspace
 # VS Code which you may wish to be included in version control, so this line
 # is commented out by default.
 .vscode/
-
-
+/Flutter_ttlines2.code-workspace
+*.env
+/lib/env/env.g.dart
+# firebase
+/ios/Runner/GoogleService-Info.plist
+/android/app/google-services.json
 
 
 # Flutter/Dart/Pub related
