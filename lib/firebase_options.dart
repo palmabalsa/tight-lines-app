@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,16 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBn3NxhtaohSDg5oH7nvFr_LuR0zxWY7dM',
-    appId: '1:1022096557715:web:de1fce25ccd1eead772f66',
-    messagingSenderId: '1022096557715',
-    projectId: 'ttlines2',
-    authDomain: 'ttlines2.firebaseapp.com',
-    storageBucket: 'ttlines2.appspot.com',
-    measurementId: 'G-PE7K8XK7YR',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB0Smz5pNs9EwF8TIoujw93dsTrVB7cw2o',
     appId: '1:1022096557715:android:ab1f656557c4435e772f66',
@@ -66,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyC1Yn2O3cuK24vl37I_9ElZA3j1YoQr3Pw',
-    appId: '1:1022096557715:ios:9f38e00f39b53375772f66',
+    appId: '1:1022096557715:ios:129b1ee25cf5d79a772f66',
     messagingSenderId: '1022096557715',
     projectId: 'ttlines2',
     storageBucket: 'ttlines2.appspot.com',
-    iosClientId: '1022096557715-bmj6tm3a0eo32ae4vueb1ios9f9q1f3q.apps.googleusercontent.com',
-    iosBundleId: 'com.example.ttlines2',
+    iosClientId: '1022096557715-hp7oct2jqt1slafltsu3gdgiirh3b27p.apps.googleusercontent.com',
+    iosBundleId: 'com.palmabalsa.ttlines2',
   );
 }

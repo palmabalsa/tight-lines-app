@@ -22,8 +22,12 @@ Flutter_ttlines2.code-workspace
 # is commented out by default.
 .vscode/
 /Flutter_ttlines2.code-workspace
+
+# env
 *.env
 /lib/env/env.g.dart
+
+
 # firebase
 /ios/Runner/GoogleService-Info.plist
 /android/app/google-services.json
