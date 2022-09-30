@@ -2,9 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:ttlines2/env/env.dart';
+// import 'package:ttlines2/env/env.dart';
 
-String mainUrl = Env.tightLinesKey;
+// String mainUrl = Env.tightLinesKey;
+String mainUrl = $TIGHTLINES_API_URL;
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -19,8 +20,6 @@ final newuser = auth.currentUser!;
 final firetoken = newuser.getIdToken();
 //   return firetoken;
 // }
-
-// String mainUrl = '***REMOVED***';
 
 // EDITED TRIAL::::::::::::::
 Future<void> deleteEntry(List<int>? idList) async {
