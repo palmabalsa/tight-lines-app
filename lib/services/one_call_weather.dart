@@ -1,15 +1,15 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-// import 'package:ttlines2/env/env.dart';
+import 'package:ttlines2/env/env.dart';
 
-String weatherURL = $WEATHER_URL;
-String weatherKEY = $WEATHER_KEY;
+// String weatherURL = $WEATHER_URL;
+// String weatherKEY = $WEATHER_KEY;
 
 Future<WeatherDataList> getWeatherData(String lat, String lon) async {
   final String apiUrl =
-      // '${Env.weatherUrl}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=$Env.weatherKey';
-      '${weatherURL}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=$weatherKEY';
+      '${Env.weatherUrl}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=$Env.weatherKey';
+  // '${weatherURL}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=$weatherKEY';
   var response = await http.get(Uri.parse(apiUrl));
 
   WeatherDataList weatherReport =
