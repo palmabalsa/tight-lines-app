@@ -16,8 +16,8 @@ class Themes {
         bodyText1: TextStyle(
             color: Colors.white, fontWeight: FontWeight.w900, fontSize: 14),
         bodyText2: TextStyle(
-            color: Colors.black, fontWeight: FontWeight.w900, fontSize: 14),
-        button: TextStyle(color: Colors.black, fontWeight: FontWeight.w300)),
+            color: Colors.black, fontWeight: FontWeight.w900, fontSize: 14)),
+    // button: TextStyle(color: Colors.black, fontWeight: FontWeight.w300)),
     //for drop down menus ::::::::::::
 
     inputDecorationTheme: InputDecorationTheme(
@@ -45,7 +45,16 @@ class Themes {
                 borderRadius: BorderRadius.circular(99)))),
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
-            foregroundColor: Colors.white,
+            foregroundColor: MaterialStateColor.resolveWith(
+              (states) {
+                return Colors.white;
+              },
+            ),
+            backgroundColor: MaterialStateColor.resolveWith(
+              (states) {
+                return Colors.white;
+              },
+            ),
             textStyle: TextStyle(
                 fontSize: 14, color: Colors.black, fontWeight: FontWeight.w900),
             side: BorderSide(color: Colors.grey),

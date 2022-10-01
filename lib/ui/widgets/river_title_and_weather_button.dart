@@ -1,8 +1,8 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:ttlines2/ui/views/weather_forecast.dart';
 
-class RiverTitle extends StatelessWidget {
+// ignore: must_be_immutable
+class RiverTitle extends StatefulWidget {
   RiverTitle({
     Key? key,
     required this.riverName,
@@ -15,6 +15,11 @@ class RiverTitle extends StatelessWidget {
   String lon;
 
   @override
+  State<RiverTitle> createState() => _RiverTitleState();
+}
+
+class _RiverTitleState extends State<RiverTitle> {
+  @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Row(
@@ -23,14 +28,15 @@ class RiverTitle extends StatelessWidget {
           const Spacer(flex: 1),
           const Spacer(flex: 6),
           ElevatedButton.icon(
+            style: theme.elevatedButtonTheme.style,
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => WeatherForecastView(
-                          riverName: riverName,
-                          lat: lat,
-                          lon: lon,
+                          riverName: widget.riverName,
+                          lat: widget.lat,
+                          lon: widget.lon,
                         )),
               );
             },

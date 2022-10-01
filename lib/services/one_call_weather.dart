@@ -3,13 +3,9 @@ import 'dart:convert';
 import 'dart:async';
 import 'package:ttlines2/env/env.dart';
 
-// String weatherURL = $WEATHER_URL;
-// String weatherKEY = $WEATHER_KEY;
-
 Future<WeatherDataList> getWeatherData(String lat, String lon) async {
   final String apiUrl =
-      '${Env.weatherUrl}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=$Env.weatherKey';
-  // '${weatherURL}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=$weatherKEY';
+      '${Env.weatherUrl}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=${Env.weatherKey}';
   var response = await http.get(Uri.parse(apiUrl));
 
   WeatherDataList weatherReport =
@@ -72,8 +68,8 @@ class WeatherData {
     return WeatherData(
       date:
           DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false),
-      windSpeed: json['windSpeed'] as num,
-      windDeg: json['windDeg'] as num,
+      windSpeed: json['wind_speed'] as num,
+      windDeg: json['wind_deg'] as num,
       temp: Temp.fromJson(json['temp']),
       weatherMain: weatherMainList,
     );
