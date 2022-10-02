@@ -12,7 +12,6 @@ class TongariroView extends StatefulWidget {
 class _TongariroViewState extends State<TongariroView> {
   String tongaLat = '-38.95';
   String tongaLon = '175.78333';
-  var fontFamily;
   String graphValue = '7D';
 
   void graphcallbackfunction(String newValue) {

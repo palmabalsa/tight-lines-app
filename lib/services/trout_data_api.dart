@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:ttlines2/env/env.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-String mainUrl = Env.tightLinesKey;
-// String mainUrl = $TIGHTLINES_API_URL;
+String mainUrl = dotenv.env['TIGHTLINES_API_URL'].toString();
 
 final FirebaseAuth auth = FirebaseAuth.instance;
 

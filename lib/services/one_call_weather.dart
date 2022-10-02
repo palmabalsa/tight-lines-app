@@ -1,11 +1,14 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
-import 'package:ttlines2/env/env.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+String weatherUrl = dotenv.env['WEATHER_URL'].toString();
+String weatherKey = dotenv.env['WEATHER_KEY'].toString();
 
 Future<WeatherDataList> getWeatherData(String lat, String lon) async {
   final String apiUrl =
-      '${Env.weatherUrl}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=${Env.weatherKey}';
+      '${weatherUrl}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=${weatherKey}';
   var response = await http.get(Uri.parse(apiUrl));
 
   WeatherDataList weatherReport =
