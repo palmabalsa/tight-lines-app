@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class WeatherReportCard extends StatelessWidget {
   WeatherReportCard({
@@ -18,6 +19,7 @@ class WeatherReportCard extends StatelessWidget {
   }) : super(key: key);
   bool isInitialCard;
   ListView? hourlyListView;
+  // ScrollablePositionedList? hourlyListView;
 
   String weekday;
   String month;
@@ -32,7 +34,7 @@ class WeatherReportCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: isInitialCard == true ? 500 : 175,
+        height: isInitialCard != true ? 175 : null,
         width: 165.0,
         child: Card(
             shape: RoundedRectangleBorder(
@@ -101,10 +103,10 @@ class WeatherReportCard extends StatelessWidget {
                 isInitialCard == true
                     ? ExpansionTile(
                         title: const Text(
-                          "Next 48Hrs Forecast",
+                          "Hourly Forecast",
                           style: TextStyle(color: Colors.teal),
                         ),
-                        initiallyExpanded: true,
+                        initiallyExpanded: false,
                         children: <Widget>[
                             SizedBox(
                                 height: 300,
