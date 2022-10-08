@@ -12,7 +12,7 @@ class Themes {
         headline1: TextStyle(),
         headline4: TextStyle(color: Colors.black),
         headline5: TextStyle(color: Colors.white, fontWeight: FontWeight.w900),
-        headline6: TextStyle(color: Colors.black),
+        headline6: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         bodyText1: TextStyle(
             color: Colors.white, fontWeight: FontWeight.w900, fontSize: 14),
         bodyText2: TextStyle(
