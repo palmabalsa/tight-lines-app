@@ -27,6 +27,7 @@ expressions.txt
 # env
 *.env
 /lib/env/env.g.dart
+CM_ENV
 
 
 # firebase
