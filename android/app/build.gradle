@@ -47,6 +47,7 @@ android {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.palmabalsa.ttlines2"
         minSdkVersion 23
+        resValue "string", "maps_api_key", "$System.env.G_MAPS_KEY_ANDROID_FB"
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
