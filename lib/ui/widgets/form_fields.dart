@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 
 class Formfield extends StatelessWidget {
-  const Formfield({
+  Formfield({
     Key? key,
     required this.fieldentry,
     required this.fieldController,
+    required this.isSensitiveData,
   }) : super(key: key);
 
-  final fieldentry;
+  var fieldentry;
+  // final fieldentry;
   final TextEditingController fieldController;
+  bool isSensitiveData;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: isSensitiveData == true ? true : false,
+      obscuringCharacter: '•',
+      autocorrect: isSensitiveData == true ? false : true,
+      enableSuggestions: isSensitiveData == true ? false : true,
       decoration: InputDecoration(
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(20))),

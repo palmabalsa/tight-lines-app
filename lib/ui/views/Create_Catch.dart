@@ -180,18 +180,6 @@ class _NewCatchViewState extends State<NewCatchView> {
                                   enabled: false,
                                 ),
                                 const Spacer(),
-                                // TextFormField(
-                                //   decoration: InputDecoration(
-                                //     fillColor: Colors.teal.shade50,
-                                //   ),
-                                //   controller: poolController,
-                                //   enabled: true,
-                                // ) : null;
-
-                                // Formfield(
-                                //     fieldentry: 'River pool',
-                                //     fieldController: riverPoolController),
-                                const Spacer(),
                                 formDropdown(
                                     menuOptions: ['Rainbow', 'Brown'],
                                     valueChoice: fishSpeciesValue,
@@ -212,12 +200,15 @@ class _NewCatchViewState extends State<NewCatchView> {
                                     fieldName: 'Condition'),
                                 const Spacer(),
                                 Formfield(
-                                    fieldentry: 'Fly used',
-                                    fieldController: flyUsedController),
+                                  fieldentry: 'Fly used',
+                                  fieldController: flyUsedController,
+                                  isSensitiveData: false,
+                                ),
                                 const Spacer(),
                                 Formfield(
                                     fieldentry: 'Any notes',
-                                    fieldController: anyNotesController),
+                                    fieldController: anyNotesController,
+                                    isSensitiveData: false),
                                 ElevatedButton(
                                   style: ButtonStyle(
                                       backgroundColor:

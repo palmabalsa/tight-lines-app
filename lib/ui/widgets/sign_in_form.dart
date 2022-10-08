@@ -50,11 +50,15 @@ class _SignInFormState extends State<SignInForm> {
                 children: <Widget>[
                   const Spacer(flex: 6),
                   Formfield(
-                      fieldentry: 'Email', fieldController: emailController),
+                      fieldentry: 'Email',
+                      fieldController: emailController,
+                      isSensitiveData: false),
                   const Spacer(),
                   Formfield(
-                      fieldentry: 'Password',
-                      fieldController: passwordController),
+                    fieldentry: 'Password',
+                    fieldController: passwordController,
+                    isSensitiveData: true,
+                  ),
                   const Spacer(),
                   ElevatedButton.icon(
                       onPressed: () {

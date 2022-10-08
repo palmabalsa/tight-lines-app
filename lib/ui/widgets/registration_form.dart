@@ -49,10 +49,17 @@ class _RegistrationFormState extends State<RegistrationForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const Spacer(flex: 6),
-              Formfield(fieldentry: 'Email', fieldController: _emailController),
+              Formfield(
+                fieldentry: 'Email',
+                fieldController: _emailController,
+                isSensitiveData: false,
+              ),
               const Spacer(),
               Formfield(
-                  fieldentry: 'Password', fieldController: _passwordController),
+                fieldentry: 'Password',
+                fieldController: _passwordController,
+                isSensitiveData: true,
+              ),
               const Spacer(),
               ElevatedButton.icon(
                   onPressed: () {
