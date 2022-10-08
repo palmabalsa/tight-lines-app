@@ -55,6 +55,10 @@ class _TongariroViewState extends State<TongariroView> {
               measuringSiteName: 'Tongariro @ Waipakihi',
               measuringSiteUrl: 'Tongariro%20at%20Waipakihi_',
               graphValue: graphValue),
+          const SizedBox(
+            height: 50,
+            child: Text('Data from Genesis: https://www.genesisenergy.co.nz'),
+          ),
         ],
       )
     ])));

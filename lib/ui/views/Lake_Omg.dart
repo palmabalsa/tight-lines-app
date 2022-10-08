@@ -43,6 +43,10 @@ class _LakeOmgViewState extends State<LakeOmgView> {
             measuringSiteName: 'Lake Otamangakau at Dam',
             measuringSiteUrl: 'Lake%20Otamangakau%20at%20Dam_',
             graphValue: graphValue),
+        const SizedBox(
+          height: 50,
+          child: Text('Data from Genesis: https://www.genesisenergy.co.nz'),
+        ),
       ])
     ])));
   }

@@ -26,13 +26,6 @@ class RiverDropDown extends StatefulWidget {
 class _RiverDropDownState extends State<RiverDropDown> {
   DropdownButtonFormField newDropdown(String anothervalue) {
     return DropdownButtonFormField(
-        // hint: Row(children: [
-        //   Icon(MaterialCommunityIcons.waves, color: Colors.teal),
-        //   Spacer(),
-        //   Text('River Level',
-        //       style: TextStyle(
-        //           color: Colors.teal.shade700, fontWeight: FontWeight.bold)),
-        // ]),
         itemHeight: null,
         decoration: InputDecoration(
           prefixIcon:
@@ -93,53 +86,63 @@ class _RiverDropDownState extends State<RiverDropDown> {
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
-    return SizedBox(
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const Spacer(flex: 1),
-          SizedBox(
-            width: 230,
-            height: 50,
-            child: widget.graphvalue != null && widget.updateGraphValue != null
-                ? newDropdown(widget.graphvalue!)
-                : Container(
-                    padding: const EdgeInsets.only(left: 50),
-                    child: Text(
-                      'Tauranga Taupo',
-                      style: theme.textTheme.headline6,
-                    )),
-          ),
-          const Spacer(flex: 1),
-          ElevatedButton.icon(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => WeatherForecastView(
-                            riverName: widget.riverName,
-                            lat: widget.lat,
-                            lon: widget.lon,
-                          )),
-                );
-              },
-              icon: Icon(
-                Icons.sunny,
-                color: Colors.amber.shade600,
-              ),
-              label: SizedBox(
-                  height: 50,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(widget.riverName,
-                            style: theme.textTheme.bodyText2),
-                        Text("Weather", style: theme.textTheme.bodyText2),
-                      ]))),
-          const Spacer(flex: 1),
-        ],
+    return Column(children: <Widget>[
+      SizedBox(
+        height: 50,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const Spacer(flex: 1),
+            SizedBox(
+              width: 230,
+              height: 50,
+              child: widget.riverName == 'Tongariro' ||
+                      widget.riverName == 'Lake O'
+                  ? newDropdown(widget.graphvalue!)
+                  : Container(
+                      padding: const EdgeInsets.only(left: 50, top: 7),
+                      child: const Text('Tauranga Taupo',
+                          style: TextStyle(
+                              color: Colors.teal,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold))),
+            ),
+            const Spacer(flex: 1),
+            ElevatedButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => WeatherForecastView(
+                              riverName: widget.riverName,
+                              lat: widget.lat,
+                              lon: widget.lon,
+                            )),
+                  );
+                },
+                icon: Icon(
+                  Icons.sunny,
+                  color: Colors.amber.shade600,
+                ),
+                label: SizedBox(
+                    height: 50,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(widget.riverName,
+                              style: theme.textTheme.bodyText2),
+                          Text("Weather", style: theme.textTheme.bodyText2),
+                        ]))),
+            const Spacer(flex: 1),
+          ],
+        ),
       ),
-    );
+      SizedBox(
+          height: widget.riverName == 'Tauranga Taupo' ? 25 : null,
+          child: widget.riverName == 'Tauranga Taupo'
+              ? const Text(
+                  'Data from Waikato council: www.waikatoregion.govt.nz')
+              : null),
+    ]);
   }
 }
