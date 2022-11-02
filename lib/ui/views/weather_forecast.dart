@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:ttlines2/services/one_call_weather.dart';
 import 'dart:async';
 import 'package:ttlines2/ui/widgets/weather_card_display.dart';
@@ -159,13 +158,6 @@ class _WeatherForecastViewState extends State<WeatherForecastView> {
                                 int first24hourIndex = 0;
                                 int second24hourIndex = 0;
 
-                                // ScrollController weatherScrollController =
-                                //     ScrollController(
-                                //   initialScrollOffset: 16,
-                                //   // initialScrollOffset: first24hourIndex + 1,
-                                //   keepScrollOffset: true,
-                                // );
-
                                 void trythis() {
                                   for (var item in fortyEightHours) {
                                     String individualhour =
@@ -185,6 +177,7 @@ class _WeatherForecastViewState extends State<WeatherForecastView> {
                                 trythis();
 
                                 if (snapshot.hasData) {
+                                  var card2 = index == 1;
                                   return WeatherReportCard(
                                     isInitialCard:
                                         index == 0 || index == 1 ? true : false,
@@ -196,96 +189,15 @@ class _WeatherForecastViewState extends State<WeatherForecastView> {
                                     windSpeed: windSpeed,
                                     windIcon: currentWindIcon,
                                     description: description,
-                                    // hourlyListView: index > 1
                                     hourlyListView: index > 1
                                         ? null
                                         : index == 0 || index == 1
-                                            ?
-                                            // ? ScrollablePositionedList.builder(
-                                            //     initialScrollIndex: index == 1
-                                            //         ? first24hourIndex + 1
-                                            //         : 0,
-                                            //     itemCount: index == 0
-                                            //         ? first24hourIndex
-                                            //         : 24,
-                                            //     itemScrollController: scrollController,
-                                            //     scrollDirection: Axis.vertical,
-                                            //     physics:
-                                            //         const ClampingScrollPhysics(),
-                                            //     shrinkWrap: true,
-                                            //     itemBuilder:
-                                            //         (BuildContext context,
-                                            //             int index) {
-                                            //       DateTime thehour = DateTime.parse(
-                                            //           '${snapshot.data!.hourlyWeatherList[index].hour}');
-                                            //       String hour = DateFormat('j')
-                                            //           .format(thehour);
-                                            //       String hourlyTemperature =
-                                            //           snapshot
-                                            //               .data!
-                                            //               .hourlyWeatherList[
-                                            //                   index]
-                                            //               .hourlyTemp
-                                            //               .toStringAsFixed(0);
-                                            //       String hourlyWindDeg =
-                                            //           snapshot
-                                            //               .data!
-                                            //               .hourlyWeatherList[
-                                            //                   index]
-                                            //               .hourlyWindDeg
-                                            //               .toStringAsFixed(0);
-                                            //       num hourlyWindDirectionNum =
-                                            //           snapshot
-                                            //               .data!
-                                            //               .hourlyWeatherList[
-                                            //                   index]
-                                            //               .hourlyWindDeg;
-                                            //       int hourlyWindDegAsInt =
-                                            //           hourlyWindDirectionNum
-                                            //               as int;
-                                            //       var hourlyWindIcon =
-                                            //           getWindArrow(
-                                            //               hourlyWindDegAsInt);
-                                            //       String hourlyWindSpeed =
-                                            //           snapshot
-                                            //               .data!
-                                            //               .hourlyWeatherList[
-                                            //                   index]
-                                            //               .hourlyWindSpeed
-                                            //               .toStringAsFixed(0);
-                                            //       String hourlyWeatherIcon =
-                                            //           snapshot
-                                            //               .data!
-                                            //               .hourlyWeatherList[
-                                            //                   index]
-                                            //               .hourlyWeatherIcon[0]
-                                            //               .hourlyIcon
-                                            //               .toString();
-
-                                            // return WeatherListTile(
-                                            //     hour: hour,
-                                            //     hourlyTemperature:
-                                            //         hourlyTemperature,
-                                            //     hourlyWindIcon:
-                                            //         hourlyWindIcon,
-                                            //     hourlyWindSpeed:
-                                            //         hourlyWindSpeed,
-                                            //     hourlyWeatherIcon:
-                                            //         hourlyWeatherIcon);
-
-                                            ListView.builder(
-                                                // controller: index == 0
-                                                //     ? null
-                                                //     : index == 1
-                                                //         ? weatherScrollController
-                                                //         : null,
-                                                itemCount: first24hourIndex,
-
-                                                // itemCount: index == 0
-                                                //     ? first24hourIndex
-                                                //     : index == 1
-                                                //         ? 12
-                                                //         : null,
+                                            ? ListView.builder(
+                                                itemCount: index == 0
+                                                    ? first24hourIndex
+                                                    : index == 1
+                                                        ? first24hourIndex + 24
+                                                        : null,
                                                 scrollDirection: Axis.vertical,
                                                 physics:
                                                     const ClampingScrollPhysics(),
@@ -339,6 +251,12 @@ class _WeatherForecastViewState extends State<WeatherForecastView> {
                                                           .hourlyIcon
                                                           .toString();
 
+                                                  if (card2) {
+                                                    if (index <
+                                                        first24hourIndex) {
+                                                      return SizedBox();
+                                                    }
+                                                  }
                                                   return WeatherListTile(
                                                       hour: hour,
                                                       hourlyTemperature:
@@ -349,8 +267,7 @@ class _WeatherForecastViewState extends State<WeatherForecastView> {
                                                           hourlyWindSpeed,
                                                       hourlyWeatherIcon:
                                                           hourlyWeatherIcon);
-                                                },
-                                              )
+                                                })
                                             : null,
                                   );
                                 } else if (snapshot.hasError) {
