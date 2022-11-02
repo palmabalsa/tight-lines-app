@@ -34,7 +34,7 @@ class _FishSummaryMapViewState extends State<FishSummaryMapView> {
           title: fish.fishSpecies,
           snippet: fishSnippet,
         ),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRose),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
       ));
     }
     return catchMarkers;

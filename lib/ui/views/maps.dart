@@ -36,17 +36,17 @@ class _MapsViewState extends State<MapsView> {
   }
 
   Map<String, dynamic> tongariroPools = {
-    'Bridge': const LatLng(-38.986123, 175.818550),
-    'Judges': const LatLng(-38.990238, 175.818796),
-    'Major Jones': const LatLng(-38.999114, 175.812740),
-    'Breakfast': const LatLng(-38.996442, 175.812594),
-    'Duchess': const LatLng(-39.026716, 175.814982),
-    'Red Hut': const LatLng(-39.030650, 175.813866),
-    'Cliff': const LatLng(-39.040400, 175.822020),
-    'Stag': const LatLng(-39.013246, 175.815368),
-    'Hydro': const LatLng(-39.002474, 175.813072),
-    'Log': const LatLng(-38.973337, 175.807536),
-    'Reed': const LatLng(-38.972986, 175.803330),
+    'Bridge Pool': const LatLng(-38.986123, 175.818550),
+    'Judges Pool': const LatLng(-38.990238, 175.818796),
+    'Major Jones Pool': const LatLng(-38.999114, 175.812740),
+    'Breakfast Pool': const LatLng(-38.996442, 175.812594),
+    'Duchess Pool': const LatLng(-39.026716, 175.814982),
+    'Red Hut Pool': const LatLng(-39.030650, 175.813866),
+    'Cliff Pool': const LatLng(-39.040400, 175.822020),
+    'Stag Pool': const LatLng(-39.013246, 175.815368),
+    'Hydro Pool': const LatLng(-39.002474, 175.813072),
+    'Log Pool': const LatLng(-38.973337, 175.807536),
+    'Reed Pool': const LatLng(-38.972986, 175.803330),
   };
 
   void _onMapCreated(GoogleMapController controller) {
@@ -59,10 +59,10 @@ class _MapsViewState extends State<MapsView> {
       markers
           .addLabelMarker(LabelMarker(
         label: poolKey,
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.teal.shade400,
         textStyle: const TextStyle(
-            fontSize: 50.0,
-            color: Colors.black,
+            fontSize: 30.0,
+            color: Colors.white,
             letterSpacing: 1.0,
             fontFamily: 'Roboto Bold'),
 

@@ -66,36 +66,23 @@ class _ConfettiPlayerState extends State<ConfettiPlayer> {
             ),
           ),
           Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-                height: 400,
-                width: 300,
-                child: Image.asset('assets/images/jumping_trout.png')),
-          ),
+              alignment: Alignment.center,
+              child: SizedBox(
+                  height: 400,
+                  width: 250,
+                  child: Image.asset(
+                    'assets/images/jumping_trout.png',
+                    color: Color.fromARGB(255, 11, 4, 10),
+                  ))),
           Align(
-              alignment: Alignment(-0.01, -0.12),
+              alignment: Alignment(0.4, -0.5),
               child: SizedBox(
                   width: 200,
-                  child: TextButton(
-                      style: ButtonStyle(
-                          fixedSize: MaterialStateProperty.resolveWith(
-                              (states) => Size.fromWidth(120)),
-                          backgroundColor: MaterialStateProperty.resolveWith(
-                              (states) => Colors.black)),
-                      onPressed: () {
-                        Navigator.pushReplacementNamed(context, '/fishinglog');
-                      },
-                      child: widget.fishSpecies != null
-                          ? Text('Nice ${widget.fishSpecies}!',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold))
-                          : Text('Nice Fish!',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold))))),
+                  child: Text('Nice Fish!',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold)))),
         ]));
   }
 }
