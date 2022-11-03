@@ -25,7 +25,7 @@
 		<key>G_MAPS_KEY_IOS_FB</key>
 		<string>$(G_MAPS_KEY_IOS_FB)</string>
 		<key>io.flutter.embedded_views_preview</key>
-		</true>
+		<string>yes</string>
 		<key>NSAppTransportSecurity</key>
 		<dict>
 			<key>NSAllowsArbitraryLoads</key>
