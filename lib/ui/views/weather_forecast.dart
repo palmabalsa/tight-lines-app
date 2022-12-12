@@ -178,6 +178,11 @@ class _WeatherForecastViewState extends State<WeatherForecastView> {
 
                                 if (snapshot.hasData) {
                                   var card2 = index == 1;
+                                  // ScrollController controllerCard1 =
+                                  //     ScrollController();
+                                  // ScrollController controllerCard2 =
+                                  //     ScrollController();
+
                                   return WeatherReportCard(
                                     isInitialCard:
                                         index == 0 || index == 1 ? true : false,
@@ -199,6 +204,9 @@ class _WeatherForecastViewState extends State<WeatherForecastView> {
                                                         ? first24hourIndex + 24
                                                         : null,
                                                 scrollDirection: Axis.vertical,
+                                                // controller: index == 0
+                                                //     ? controllerCard1
+                                                //     : controllerCard2,
                                                 physics:
                                                     const ClampingScrollPhysics(),
                                                 shrinkWrap: true,

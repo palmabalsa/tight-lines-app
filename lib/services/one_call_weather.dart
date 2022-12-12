@@ -17,7 +17,6 @@ Future<WeatherDataList> getWeatherData(String lat, String lon) async {
   if (response.statusCode == 200) {
     return weatherReport;
   } else {
-    // print(response.statusCode);
     throw (Exception('error HERE'));
   }
 }
@@ -67,7 +66,6 @@ class WeatherData {
     var newList = json['weather'] as List;
     List<WeatherMain> weatherMainList =
         newList.map((item) => WeatherMain.fromJson(item)).toList();
-
     return WeatherData(
       date:
           DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false),
@@ -99,20 +97,17 @@ class Temp {
 
 class WeatherMain {
   int id;
-  // String main_description;
   String description;
   String icon;
 
   WeatherMain({
     required this.id,
-    // required this.main_description,
     required this.description,
     required this.icon,
   });
   factory WeatherMain.fromJson(Map<String, dynamic> json) {
     return WeatherMain(
       id: json['id'] as int,
-      // main_description : json['main'] as String,
       description: json['description'] as String,
       icon: json['icon'] as String,
     );
@@ -133,15 +128,12 @@ class HourlyWeatherData {
     required this.hourlyWindSpeed,
     required this.hourlyWeatherIcon,
   });
-
   factory HourlyWeatherData.fromJson(Map<String, dynamic> json) {
     var rawHourlyIconList = json['weather'] as List;
     List<HourlyWeatherMain> hourlyIconList = rawHourlyIconList
         .map((item) => HourlyWeatherMain.fromJson(item))
         .toList();
-
     return HourlyWeatherData(
-      // hour: json['dt'],
       hour:
           DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false),
       hourlyTemp: json['temp'] as num,
