@@ -1,10 +1,17 @@
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ttlines2/services/trout_data_api.dart';
 import 'package:ttlines2/ui/views/confetti_screen.dart';
 import 'package:ttlines2/ui/widgets/form_fields.dart';
+
+// final logEntryServiceProvider =
+//     FutureProvider.autoDispose<TroutData>((ref) async {
+//   return ref.read(troutDataServiceProvider).newCatch();
+// });
 
 // ignore: must_be_immutable
 class NewCatchView extends StatefulWidget {
@@ -62,6 +69,9 @@ class _NewCatchViewState extends State<NewCatchView> {
     }
     return DropdownButtonFormField<String>(
         items: newList,
+        hint: Text(fieldName),
+        // value: helpertext,
+        // value: fieldName,
         value: menuOptions[0],
         onChanged: (value) {
           if (fieldName == "Condition") {
@@ -87,10 +97,8 @@ class _NewCatchViewState extends State<NewCatchView> {
         ));
   }
 
-// based on latLon from user
-  // void determinePool() {
-  //   if (widget.pool != null) {
-  // list of pools and latlongs and map them
+  // TODO :::: add other rivers lat lons, and add a blank option
+  // for when the river isnt in the lat/lon vicinity allowed
 
   void determineRiverAndPool() {
     if (widget.latLon.longitude <= 175.701685 &&
@@ -118,7 +126,6 @@ class _NewCatchViewState extends State<NewCatchView> {
   void initState() {
     super.initState();
     determineRiverAndPool();
-    // determinePool();
   }
 
   @override
@@ -127,7 +134,7 @@ class _NewCatchViewState extends State<NewCatchView> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Add Your Catch',
+            'Trout Data',
             style: theme.textTheme.headline5,
           ),
         ),
@@ -137,11 +144,10 @@ class _NewCatchViewState extends State<NewCatchView> {
             const SizedBox(height: 30),
             SingleChildScrollView(
                 child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.teal.shade50,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20))),
-                    margin: const EdgeInsets.fromLTRB(50, 10, 50, 20),
+                    decoration: const BoxDecoration(
+                        // color: Colors.teal.shade50,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    margin: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                     padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
                     width: 100,
                     height: 500,
@@ -153,6 +159,11 @@ class _NewCatchViewState extends State<NewCatchView> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
+                                // if (Platform.isIOS) {
+                                //   return CupertinoPicker
+
+                                // },
+                                // else if (Platform.isAndroid){
                                 DateTimePicker(
                                     decoration: const InputDecoration(
                                       labelText: 'Date',
@@ -171,10 +182,11 @@ class _NewCatchViewState extends State<NewCatchView> {
                                     validator: (value) {
                                       return null;
                                     }),
+
                                 const Spacer(),
                                 TextFormField(
                                   decoration: InputDecoration(
-                                    fillColor: Colors.teal.shade50,
+                                    fillColor: Colors.grey.shade200,
                                   ),
                                   controller: riverController,
                                   enabled: false,
@@ -187,7 +199,7 @@ class _NewCatchViewState extends State<NewCatchView> {
                                 const Spacer(),
                                 numericTextField(
                                     chosenController: fishWeightController,
-                                    fieldLabel: 'Weight (kg)'),
+                                    fieldLabel: 'Weight? (kg)'),
                                 const Spacer(),
                                 formDropdown(
                                     menuOptions: [
@@ -200,53 +212,63 @@ class _NewCatchViewState extends State<NewCatchView> {
                                     fieldName: 'Condition'),
                                 const Spacer(),
                                 Formfield(
-                                  fieldentry: 'Fly used',
+                                  fieldentry: 'Fly used?',
                                   fieldController: flyUsedController,
                                   isSensitiveData: false,
                                 ),
                                 const Spacer(),
+
                                 Formfield(
-                                    fieldentry: 'Any notes',
+                                    fieldentry: 'Any notes?',
                                     fieldController: anyNotesController,
                                     isSensitiveData: false),
-                                ElevatedButton(
-                                  style: ButtonStyle(
-                                      backgroundColor:
-                                          MaterialStateProperty.resolveWith(
-                                              (states) => Colors.tealAccent)),
-                                  // style: theme.elevatedButtonTheme.style,
-                                  onPressed: () async {
-                                    if (_formKey.currentState!.validate()) {
-                                      setState(() {
-                                        final fishyBiz = TroutData(
-                                          user: getUserUID(),
-                                          date: DateTime.parse(dateValue),
-                                          river: riverController.text,
-                                          lat: widget.latLon.latitude,
-                                          lon: widget.latLon.longitude,
-                                          fishSpecies: fishSpeciesValue,
-                                          fishCondition: fishConditionValue,
-                                          fishWeight: fishWeightController.text,
-                                          riverPool: poolController.text,
-                                          flyUsed: flyUsedController.text,
-                                          anyNotes: anyNotesController.text,
-                                        );
-                                        clarity = newCatch(fishyBiz);
-                                      });
+                                const Spacer(),
+                                Center(
+                                  child: OutlinedButton(
+                                      style: ButtonStyle(
+                                        padding:
+                                            MaterialStateProperty.resolveWith(
+                                                (states) =>
+                                                    const EdgeInsets.fromLTRB(
+                                                        80.0,
+                                                        15.0,
+                                                        80.0,
+                                                        15.0)),
+                                      ),
+                                      onPressed: () async {
+                                        if (_formKey.currentState!.validate()) {
+                                          setState(() {
+                                            final fishyBiz = TroutData(
+                                              user: getUserUID(),
+                                              date: DateTime.parse(dateValue),
+                                              river: riverController.text,
+                                              lat: widget.latLon.latitude,
+                                              lon: widget.latLon.longitude,
+                                              fishSpecies: fishSpeciesValue,
+                                              fishCondition: fishConditionValue,
+                                              fishWeight:
+                                                  fishWeightController.text,
+                                              riverPool: poolController.text,
+                                              flyUsed: flyUsedController.text,
+                                              anyNotes: anyNotesController.text,
+                                            );
+                                            clarity = newCatch(fishyBiz);
+                                          });
 
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ConfettiPlayer(
-                                                    fishSpecies:
-                                                        fishSpeciesValue,
-                                                  )));
-                                    }
-                                  },
-                                  child: const Text('Submit',
-                                      style: TextStyle(color: Colors.black)),
-                                )
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ConfettiPlayer(
+                                                        fishSpecies:
+                                                            fishSpeciesValue,
+                                                      )));
+                                        }
+                                      },
+                                      child: const Text(
+                                        'Submit',
+                                      )),
+                                ),
                               ],
                             )))))
           ],

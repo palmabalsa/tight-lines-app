@@ -31,8 +31,9 @@ class _FishSummaryMapViewState extends State<FishSummaryMapView> {
         position: catchCoords,
         draggable: false,
         infoWindow: InfoWindow(
-          title: fish.fishSpecies,
-          snippet: fishSnippet,
+          title: fishSnippet,
+          // title: fish.fishSpecies,
+          // snippet: fishSnippet,
         ),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
       ));
