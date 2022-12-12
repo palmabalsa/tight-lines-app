@@ -13,7 +13,7 @@ class _TTWebviewState extends State<TTWebview> {
   Widget build(BuildContext context) {
     return WebView(
       initialUrl:
-          'https://waikatoregion.govt.nz/environment/envirohub/environmental-maps-and-data/station/42456/WL?dt=Level',
+          'https://www.waikatoregion.govt.nz/environment/envirohub/environmental-maps-and-data/station/42456/WL?dt=Level',
       javascriptMode: JavascriptMode.unrestricted,
       navigationDelegate: (NavigationRequest request) {
         return NavigationDecision.prevent;
