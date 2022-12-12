@@ -60,13 +60,31 @@ class _SignInFormState extends State<SignInForm> {
                     isSensitiveData: true,
                   ),
                   const Spacer(),
+                  // Row(
+                  //   children: <Widget>[
                   ElevatedButton.icon(
                       onPressed: () {
                         signIn();
                       },
                       icon: const Icon(Icons.lock_open, color: Colors.black),
                       label: const Text('Sign In',
-                          style: TextStyle(color: Colors.black))),
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.normal))),
+                  const Spacer(),
+                  TextButton(
+                      // ElevatedButton(
+                      onPressed: () async {
+                        await FirebaseAuth.instance.sendPasswordResetEmail(
+                            email: emailController.text.trim());
+                      },
+                      child: const Text('Forgot Password ?',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.normal,
+                              fontSize: 12))),
+                  //   ],
+                  // ),
                   const Spacer(flex: 3),
                 ],
               ),

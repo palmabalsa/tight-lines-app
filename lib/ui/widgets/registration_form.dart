@@ -21,8 +21,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      Navigator.pushNamed(context, '/fishinglog');
-      return user;
+      // Navigator.pushNamed(context, '/fishinglog');
+      // return user;
     } on FirebaseAuthException catch (e) {
       print(e);
     }

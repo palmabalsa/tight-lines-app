@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
+import 'package:ttlines2/ui/views/settings.dart';
 import 'package:ttlines2/ui/widgets/data_table.dart';
 
 class TroutDataView extends StatefulWidget {
@@ -30,7 +31,6 @@ class _TroutDataViewState extends State<TroutDataView> {
                 style: theme.textTheme.headline5,
               ),
               const Spacer(),
-              // replaced container w sizedbox (thanks dart)
               SizedBox(
                 height: 40,
                 width: 50,
@@ -41,13 +41,26 @@ class _TroutDataViewState extends State<TroutDataView> {
             ],
           ),
           actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.popUntil(context, (route) => route.isFirst);
-              },
-              child: const Text('Sign Out'),
-            ),
+            // settings button:::
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SettingsView()),
+                  );
+                },
+                icon: const Icon(
+                  MaterialCommunityIcons.settings,
+                  color: Colors.white,
+                )),
+            // TextButton(
+            //   onPressed: () {
+            //     FirebaseAuth.instance.signOut();
+            //     Navigator.popUntil(context, (route) => route.isFirst);
+            //   },
+            //   child: const Text('Sign Out'),
+            // ),
           ],
         ),
         body: Center(

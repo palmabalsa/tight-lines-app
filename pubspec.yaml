@@ -40,7 +40,7 @@ dependencies:
   intl: ^0.17.0
   date_time_picker: ^2.1.0
   firebase_auth: ^3.4.2
-  firebase_core: ^1.19.2
+  firebase_core: ^1.20.0
   confetti: ^0.7.0
   webview_flutter: ^3.0.4
   label_marker: ^1.0.1
@@ -48,6 +48,9 @@ dependencies:
   firebase_crashlytics: ^2.8.11
   flutter_dotenv: ^5.0.2
   flutter_riverpod: ^2.1.0
+  firebase_ui_auth: ^1.0.0-dev.0
+  json_serializable: ^6.5.4
+  fl_chart: ^0.55.2
 
 dev_dependencies:
   flutter_test:

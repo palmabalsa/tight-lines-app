@@ -16,21 +16,21 @@ class Formfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: isSensitiveData == true ? true : false,
-      obscuringCharacter: '•',
-      autocorrect: isSensitiveData == true ? false : true,
-      enableSuggestions: isSensitiveData == true ? false : true,
+      // obscureText: isSensitiveData == true ? true : false,
+      // obscuringCharacter: '•',
+      // autocorrect: isSensitiveData == true ? false : true,
+      // enableSuggestions: isSensitiveData == true ? false : true,
       decoration: InputDecoration(
           border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(20))),
           labelText: fieldentry),
       controller: fieldController,
-      validator: (inputValue) {
-        if (inputValue == null || inputValue.isEmpty) {
-          return 'This field is required';
-        }
-        return null;
-      },
+      // validator: (inputValue) {
+      //   if (inputValue == null || inputValue.isEmpty) {
+      //     return 'This field is required';
+      //   }
+      //   return null;
+      // },
     );
   }
 }

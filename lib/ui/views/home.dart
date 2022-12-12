@@ -49,18 +49,38 @@ class _HomeViewState extends State<HomeView>
             const Spacer(flex: 6),
           ]),
           actions: <Widget>[
-            TextButton(
-                style: theme.textButtonTheme.style,
-                onPressed: () {
-                  FirebaseAuth.instance.authStateChanges().listen((User? user) {
-                    if (user == null) {
-                      Navigator.pushNamed(context, '/login');
-                    } else {
-                      Navigator.pushNamed(context, '/fishinglog');
-                    }
-                  });
-                },
-                child: const Text('LOG')),
+            Column(children: <Widget>[
+              const Spacer(),
+              OutlinedButton(
+                  style: ButtonStyle(
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        const EdgeInsets.all(0.0)),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(99))),
+                    side: MaterialStateProperty.all<BorderSide>(
+                        const BorderSide(color: Colors.black, width: 0.5)),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.teal.shade100),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.black),
+                  ),
+                  // TextButton(
+                  //     style: theme.textButtonTheme.style,
+                  onPressed: () {
+                    FirebaseAuth.instance
+                        .authStateChanges()
+                        .listen((User? user) {
+                      if (user == null) {
+                        Navigator.pushNamed(context, '/sign-in');
+                      } else {
+                        Navigator.pushNamed(context, '/fishinglog');
+                      }
+                    });
+                  },
+                  child: const Text('LOG')),
+              Spacer(),
+            ])
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(50),
