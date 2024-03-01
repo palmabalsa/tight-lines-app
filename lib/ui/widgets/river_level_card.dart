@@ -34,7 +34,7 @@ class RiverLevelCard extends StatelessWidget {
           ),
           Row(mainAxisAlignment: MainAxisAlignment.start, children: [
             const Spacer(),
-            Text(measuringSiteName, style: theme.textTheme.bodyText2),
+            Text(measuringSiteName, style: theme.textTheme.bodyMedium),
             const Spacer(flex: 6),
           ]),
           const SizedBox(

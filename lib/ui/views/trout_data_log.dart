@@ -21,14 +21,15 @@ class _TroutDataViewState extends State<TroutDataView> {
         appBar: AppBar(
           leading: IconButton(
               onPressed: () {
-                Navigator.popUntil(context, (route) => route.isFirst);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/', (route) => false);
               },
               icon: const Icon(MaterialCommunityIcons.home)),
           title: Row(
             children: [
               Text(
                 'Trout Data',
-                style: theme.textTheme.headline5,
+                style: theme.textTheme.headlineSmall,
               ),
               const Spacer(),
               SizedBox(
@@ -54,13 +55,6 @@ class _TroutDataViewState extends State<TroutDataView> {
                   MaterialCommunityIcons.settings,
                   color: Colors.white,
                 )),
-            // TextButton(
-            //   onPressed: () {
-            //     FirebaseAuth.instance.signOut();
-            //     Navigator.popUntil(context, (route) => route.isFirst);
-            //   },
-            //   child: const Text('Sign Out'),
-            // ),
           ],
         ),
         body: Center(

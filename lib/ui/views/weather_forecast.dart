@@ -4,20 +4,22 @@ import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:ttlines2/services/one_call_weather.dart';
 import 'dart:async';
 import 'package:ttlines2/ui/widgets/weather_card_display.dart';
-import 'package:ttlines2/ui/widgets/weather_48hr_list_tile.dart';
+import 'package:ttlines2/ui/widgets/weather_list_tile.dart';
 import 'package:intl/intl.dart';
 
 class WeatherForecastView extends StatefulWidget {
   WeatherForecastView({
     Key? key,
-    required this.riverName,
+    required this.waterwayName,
     required this.lat,
     required this.lon,
+    required this.isRiver,
   }) : super(key: key);
 
-  String riverName;
+  String waterwayName;
   String lat;
   String lon;
+  bool isRiver;
 
   @override
   State<WeatherForecastView> createState() => _WeatherForecastViewState();
@@ -101,11 +103,17 @@ class _WeatherForecastViewState extends State<WeatherForecastView> {
     var theme = Theme.of(context);
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: widget.isRiver == true
+              ? theme.appBarTheme.backgroundColor
+              : Colors.white,
           title: Text(
-            widget.riverName,
-            style: theme.textTheme.headline5,
+            widget.waterwayName,
+            style: widget.isRiver == true
+                ? theme.textTheme.headlineSmall
+                : const TextStyle(color: Colors.teal),
           ),
         ),
+        // : null,
         body: Center(
             child: Padding(
           padding: const EdgeInsets.fromLTRB(12.0, 0.0, 12.0, 0.0),
@@ -154,9 +162,9 @@ class _WeatherForecastViewState extends State<WeatherForecastView> {
                                 List<HourlyWeatherData> fortyEightHours =
                                     snapshot.data!.hourlyWeatherList;
                                 List<String> hoursOnly = [];
-                                List<String> day2HourList = [];
+                                // List<String> day2HourList = [];
                                 int first24hourIndex = 0;
-                                int second24hourIndex = 0;
+                                // int second24hourIndex;
 
                                 void trythis() {
                                   for (var item in fortyEightHours) {
@@ -167,11 +175,11 @@ class _WeatherForecastViewState extends State<WeatherForecastView> {
                                       first24hourIndex = hoursOnly.indexWhere(
                                               (hour) => (hour == '00')) +
                                           1;
-                                      second24hourIndex = first24hourIndex + 1;
+                                      // second24hourIndex = first24hourIndex + 1;
                                     }
                                   }
-                                  print(
-                                      '$first24hourIndex, $second24hourIndex');
+                                  // print(
+                                  //     '$first24hourIndex, $second24hourIndex');
                                 }
 
                                 trythis();
@@ -262,7 +270,7 @@ class _WeatherForecastViewState extends State<WeatherForecastView> {
                                                   if (card2) {
                                                     if (index <
                                                         first24hourIndex) {
-                                                      return SizedBox();
+                                                      return const SizedBox();
                                                     }
                                                   }
                                                   return WeatherListTile(

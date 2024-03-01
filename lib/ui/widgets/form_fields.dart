@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class Formfield extends StatelessWidget {
@@ -5,25 +7,21 @@ class Formfield extends StatelessWidget {
     Key? key,
     required this.fieldentry,
     required this.fieldController,
-    required this.isSensitiveData,
   }) : super(key: key);
 
+  // ignore: prefer_typing_uninitialized_variables
   var fieldentry;
-  // final fieldentry;
   final TextEditingController fieldController;
-  bool isSensitiveData;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // obscureText: isSensitiveData == true ? true : false,
-      // obscuringCharacter: '•',
-      // autocorrect: isSensitiveData == true ? false : true,
-      // enableSuggestions: isSensitiveData == true ? false : true,
       decoration: InputDecoration(
-          border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20))),
-          labelText: fieldentry),
+        labelText: fieldentry,
+        labelStyle: const TextStyle(
+            fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16),
+        hintText: fieldentry,
+      ),
       controller: fieldController,
       // validator: (inputValue) {
       //   if (inputValue == null || inputValue.isEmpty) {

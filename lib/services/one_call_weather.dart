@@ -8,7 +8,7 @@ String weatherKey = dotenv.env['WEATHER_KEY'].toString();
 
 Future<WeatherDataList> getWeatherData(String lat, String lon) async {
   final String apiUrl =
-      '${weatherUrl}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=${weatherKey}';
+      '${weatherUrl}data/2.5/onecall?lat=$lat&lon=$lon&exclude=current,minutely,alerts&units=metric&appid=$weatherKey';
   var response = await http.get(Uri.parse(apiUrl));
 
   WeatherDataList weatherReport =

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ttlines2/ui/widgets/river_drop_down_menu.dart';
+import 'package:ttlines2/ui/widgets/riverdropdown_and_weather_header.dart';
 import 'package:ttlines2/ui/widgets/river_level_card.dart';
 
 class LakeOmgView extends StatefulWidget {
@@ -8,7 +8,7 @@ class LakeOmgView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LakeOmgViewState createState() => _LakeOmgViewState();
+  State<LakeOmgView> createState() => _LakeOmgViewState();
 }
 
 class _LakeOmgViewState extends State<LakeOmgView> {
@@ -32,7 +32,7 @@ class _LakeOmgViewState extends State<LakeOmgView> {
       Column(children: <Widget>[
         const SizedBox(height: 10),
         RiverDropDown(
-          riverName: 'Lake O',
+          waterwayName: 'Lake O',
           lat: lakeOLat,
           lon: lakeOLon,
           graphvalue: graphValue,

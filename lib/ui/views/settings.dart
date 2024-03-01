@@ -12,7 +12,7 @@ class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('SETTINGS')),
+        appBar: AppBar(title: const Text('Settings')),
         body: Center(
             child: ListView(
           children: <Widget>[
@@ -28,7 +28,8 @@ class _SettingsViewState extends State<SettingsView> {
             TextButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
-                Navigator.popUntil(context, (route) => route.isFirst);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, '/', (route) => false);
               },
               child: const Text('Sign Out'),
             ),

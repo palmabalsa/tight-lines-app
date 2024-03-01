@@ -6,55 +6,47 @@ class Themes {
   static final light = ThemeData(
     primarySwatch: Colors.teal,
     primaryColor: Colors.teal.shade200,
-    appBarTheme: AppBarTheme(color: Colors.teal.shade200),
+    appBarTheme: AppBarTheme(color: Colors.teal),
     scaffoldBackgroundColor: Colors.white,
     fontFamily: 'Sofiapro',
     textTheme: const TextTheme(
-        headline1: TextStyle(),
-        headline4: TextStyle(color: Colors.black),
-        headline5: TextStyle(color: Colors.white, fontWeight: FontWeight.w900),
-        headline6: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        bodyText1: TextStyle(
+        displayLarge: TextStyle(),
+        headlineMedium: TextStyle(color: Colors.black),
+        headlineSmall:
+            TextStyle(color: Colors.white, fontWeight: FontWeight.w900),
+        titleLarge: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        titleMedium:
+            TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        bodyLarge: TextStyle(
             color: Colors.white, fontWeight: FontWeight.w900, fontSize: 14),
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
             color: Colors.black, fontWeight: FontWeight.w900, fontSize: 14)),
+
     // button: TextStyle(color: Colors.black, fontWeight: FontWeight.w300)),
     //for drop down menus ::::::::::::
 
     inputDecorationTheme: InputDecorationTheme(
-      floatingLabelStyle: TextStyle(color: Colors.teal),
-      helperStyle: TextStyle(color: Colors.teal),
-      hintStyle: TextStyle(color: Colors.teal),
+      floatingLabelStyle:
+          TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
+      helperStyle: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
+      hintStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
       labelStyle: TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
+          fontSize: 16.0, fontWeight: FontWeight.w500, color: Colors.black),
       contentPadding: EdgeInsets.all(8.0),
       fillColor: Colors.white,
       filled: true,
       focusColor: Colors.teal.shade400,
-      disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(99)),
-          borderSide: BorderSide(color: Colors.grey)),
-      focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(99)),
-          borderSide: BorderSide(color: Colors.teal.shade400)),
-      errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(99)),
-          borderSide: BorderSide(color: Colors.red)),
-      enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(99)),
-          borderSide: BorderSide(color: Colors.grey.shade800)),
+      enabledBorder: UnderlineInputBorder(),
     ),
 
-    indicatorColor: Colors.blueGrey.shade900,
+    indicatorColor: Colors.teal.shade50,
     tabBarTheme: TabBarTheme(
-      labelColor: Colors.blueGrey.shade900,
+      labelColor: Colors.teal.shade50,
       labelStyle: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
       unselectedLabelStyle: TextStyle(
         fontSize: 12,
       ),
     ),
-
     textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
             foregroundColor: Colors.black,
@@ -63,11 +55,25 @@ class Themes {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(99)))),
 
+    snackBarTheme: SnackBarThemeData(
+        backgroundColor: Colors.teal,
+        contentTextStyle: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.w900, fontSize: 16)),
+
+    // dropdownMenuTheme: DropdownMenuThemeData(
+    //     inputDecorationTheme: InputDecorationTheme(
+    //   // fillColor: Colors.white,
+    //   fillColor: Colors.black,
+    //   border: OutlineInputBorder(
+    //       borderRadius: const BorderRadius.all(Radius.circular(99)),
+    //       borderSide: BorderSide(color: Colors.black)),
+    // )),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
             foregroundColor: MaterialStateColor.resolveWith(
               (states) {
-                return Colors.white;
+                return Colors.black;
               },
             ),
             backgroundColor: MaterialStateColor.resolveWith(
@@ -76,10 +82,11 @@ class Themes {
               },
             ),
             textStyle: TextStyle(
-                fontSize: 14, color: Colors.black, fontWeight: FontWeight.w900),
-            side: BorderSide(color: Colors.grey),
+                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
+            side: BorderSide(color: Colors.black, width: 0.5),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(99)))),
+
     outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
       textStyle: MaterialStateTextStyle.resolveWith((states) {

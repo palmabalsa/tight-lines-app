@@ -28,6 +28,8 @@ class WeatherReportCard extends StatelessWidget {
   String windSpeed;
   Icon windIcon;
   String description;
+  final ScrollController _hourlyWeatherScroller = ScrollController();
+  // _hourlyWeatherScroller.pos
 
   @override
   Widget build(BuildContext context) {
@@ -99,18 +101,24 @@ class WeatherReportCard extends StatelessWidget {
                       )
                     ]),
                 isInitialCard == true
-                    ? ExpansionTile(
-                        title: const Text(
-                          "Hourly Forecast",
-                          style: TextStyle(color: Colors.teal),
-                        ),
-                        initiallyExpanded: false,
-                        children: <Widget>[
-                            SizedBox(
-                                height: 300,
-                                child: SingleChildScrollView(
-                                    child: hourlyListView!))
-                          ])
+                    ? SingleChildScrollView(
+                        controller: _hourlyWeatherScroller,
+                        child: Scrollbar(
+                            controller: _hourlyWeatherScroller,
+                            trackVisibility: true,
+                            thumbVisibility: true,
+                            child: ExpansionTile(
+                                title: const Text(
+                                  "Hourly Forecast",
+                                  style: TextStyle(color: Colors.teal),
+                                ),
+                                initiallyExpanded: false,
+                                children: <Widget>[
+                                  SizedBox(
+                                      height: 300,
+                                      child: SingleChildScrollView(
+                                          child: hourlyListView!))
+                                ])))
                     : const SizedBox(),
               ]),
             )));

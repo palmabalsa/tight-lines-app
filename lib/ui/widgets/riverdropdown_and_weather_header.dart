@@ -8,14 +8,14 @@ class RiverDropDown extends StatefulWidget {
     Key? key,
     this.graphvalue,
     this.updateGraphValue,
-    required this.riverName,
+    required this.waterwayName,
     required this.lat,
     required this.lon,
   }) : super(key: key);
 
   String? graphvalue;
   Function? updateGraphValue;
-  String riverName;
+  String waterwayName;
   String lat;
   String lon;
 
@@ -29,14 +29,13 @@ class _RiverDropDownState extends State<RiverDropDown> {
         itemHeight: null,
         decoration: InputDecoration(
           prefixIcon:
-              const Icon(MaterialCommunityIcons.waves, color: Colors.black),
-          fillColor: Colors.teal.shade50,
+              Icon(MaterialCommunityIcons.waves, color: Colors.blue.shade700),
+          // fillColor: Colors.teal.shade50,
           border: OutlineInputBorder(
               borderRadius: const BorderRadius.all(Radius.circular(99)),
               borderSide: BorderSide(color: Colors.grey.shade800)),
           enabled: false,
         ),
-        dropdownColor: Colors.teal.shade50,
         iconSize: 30,
         isExpanded: true,
         items: const [
@@ -96,8 +95,8 @@ class _RiverDropDownState extends State<RiverDropDown> {
             SizedBox(
               width: 230,
               height: 50,
-              child: widget.riverName == 'Tongariro' ||
-                      widget.riverName == 'Lake O'
+              child: widget.waterwayName == 'Tongariro' ||
+                      widget.waterwayName == 'Lake O'
                   ? newDropdown(widget.graphvalue!)
                   : Container(
                       padding: const EdgeInsets.only(left: 50, top: 7),
@@ -114,9 +113,14 @@ class _RiverDropDownState extends State<RiverDropDown> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => WeatherForecastView(
-                              riverName: widget.riverName,
+                              waterwayName: widget.waterwayName,
                               lat: widget.lat,
                               lon: widget.lon,
+                              isRiver: widget.waterwayName == 'Tongariro' ||
+                                      widget.waterwayName == 'Tauranga Taupo' ||
+                                      widget.waterwayName == 'Lake O'
+                                  ? true
+                                  : false,
                             )),
                   );
                 },
@@ -129,17 +133,17 @@ class _RiverDropDownState extends State<RiverDropDown> {
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(widget.riverName,
-                              style: theme.textTheme.bodyText2),
-                          Text("Weather", style: theme.textTheme.bodyText2),
+                          Text(widget.waterwayName,
+                              style: theme.textTheme.bodyMedium),
+                          Text("Weather", style: theme.textTheme.bodyMedium),
                         ]))),
             const Spacer(flex: 1),
           ],
         ),
       ),
       SizedBox(
-          height: widget.riverName == 'Tauranga Taupo' ? 25 : null,
-          child: widget.riverName == 'Tauranga Taupo'
+          height: widget.waterwayName == 'Tauranga Taupo' ? 25 : null,
+          child: widget.waterwayName == 'Tauranga Taupo'
               ? const Text(
                   'Data from Waikato council: www.waikatoregion.govt.nz')
               : null),

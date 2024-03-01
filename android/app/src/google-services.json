@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1022096557715",
+    "project_id": "ttlines2",
+    "storage_bucket": "ttlines2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022096557715:android:ab1f656557c4435e772f66",
+        "android_client_info": {
+          "package_name": "com.palmabalsa.ttlines2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022096557715-1c02p1fjjthcuhv6s4e7r0q1jpcmubo6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.palmabalsa.ttlines2",
+            "certificate_hash": "dbd3a9bcfdca80f98fabb8a1fb0272541ebd7cf3"
+          }
+        },
+        {
+          "client_id": "1022096557715-ou4va8i5jmth0df9ftmdjas7pdbh6hev.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0Smz5pNs9EwF8TIoujw93dsTrVB7cw2o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022096557715-ou4va8i5jmth0df9ftmdjas7pdbh6hev.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1022096557715-hp7oct2jqt1slafltsu3gdgiirh3b27p.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.palmabalsa.ttlines2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

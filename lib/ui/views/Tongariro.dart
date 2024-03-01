@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ttlines2/ui/widgets/river_drop_down_menu.dart';
+import 'package:ttlines2/ui/widgets/riverdropdown_and_weather_header.dart';
 import 'package:ttlines2/ui/widgets/river_level_card.dart';
 
 class TongariroView extends StatefulWidget {
@@ -30,7 +30,7 @@ class _TongariroViewState extends State<TongariroView> {
         children: <Widget>[
           const SizedBox(height: 10),
           RiverDropDown(
-              riverName: 'Tongariro',
+              waterwayName: 'Tongariro',
               lat: tongaLat,
               lon: tongaLon,
               graphvalue: graphValue,

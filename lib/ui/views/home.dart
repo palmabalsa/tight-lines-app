@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ttlines2/ui/views/lake_omg.dart';
+import 'package:ttlines2/ui/views/taupo_view.dart';
 import 'package:ttlines2/ui/views/tt.dart';
 import 'package:ttlines2/ui/views/tongariro.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -9,7 +12,7 @@ class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView>
@@ -19,7 +22,7 @@ class _HomeViewState extends State<HomeView>
   @override
   void initState() {
     super.initState();
-    tabbarcontroller = TabController(length: 3, vsync: this);
+    tabbarcontroller = TabController(length: 4, vsync: this);
     initializeDateFormatting();
   }
 
@@ -36,10 +39,10 @@ class _HomeViewState extends State<HomeView>
       appBar: AppBar(
           title: Row(children: [
             Text(
-              'Turangi Tight Lines',
-              style: theme.textTheme.headline5,
+              'Taupo Tight Lines',
+              style: theme.textTheme.headlineSmall,
             ),
-            const Spacer(flex: 2),
+            Platform.isAndroid ? const Spacer(flex: 2) : const Spacer(),
             SizedBox(
               height: 40,
               width: 50,
@@ -50,8 +53,7 @@ class _HomeViewState extends State<HomeView>
           ]),
           actions: <Widget>[
             Column(children: <Widget>[
-              const Spacer(),
-              OutlinedButton(
+              ElevatedButton(
                   style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsets>(
                         const EdgeInsets.all(0.0)),
@@ -61,12 +63,10 @@ class _HomeViewState extends State<HomeView>
                     side: MaterialStateProperty.all<BorderSide>(
                         const BorderSide(color: Colors.black, width: 0.5)),
                     backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.teal.shade100),
+                        MaterialStateProperty.all<Color>(Colors.teal.shade50),
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.black),
                   ),
-                  // TextButton(
-                  //     style: theme.textButtonTheme.style,
                   onPressed: () {
                     FirebaseAuth.instance
                         .authStateChanges()
@@ -74,12 +74,13 @@ class _HomeViewState extends State<HomeView>
                       if (user == null) {
                         Navigator.pushNamed(context, '/sign-in');
                       } else {
-                        Navigator.pushNamed(context, '/fishinglog');
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '/fishinglog', (route) => false);
                       }
                     });
                   },
                   child: const Text('LOG')),
-              Spacer(),
+              const Spacer(),
             ])
           ],
           bottom: PreferredSize(
@@ -90,6 +91,7 @@ class _HomeViewState extends State<HomeView>
                 Tab(text: 'Tongariro'),
                 Tab(text: 'Lake O'),
                 Tab(text: 'TT'),
+                Tab(text: 'Taupo'),
               ],
             ),
           )),
@@ -100,6 +102,7 @@ class _HomeViewState extends State<HomeView>
           TongariroView(),
           LakeOmgView(),
           TaurangaTaupoView(),
+          TaupoView(),
         ],
       )),
     );
